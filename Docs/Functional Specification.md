@@ -35,6 +35,7 @@ Skills: Highly technical and knows programming skills.
 ### Use cases
 
 Explicit Use case: 
+
     1. View season summary / summary till particular episode
         User: Selects either the season and episode option
         System: shows the options
