@@ -1,6 +1,6 @@
 # Functional Specification
 
-#### Background
+### Background
 
 Everyone loves a good TV show. Everyone loves binge-watching a good TV show. But life only gives us 24 hours every day to do that. That’s only 19 hours on some days if you are a UW MSDS student. Even less if you have an assignment or mid-term due the next day. As the days pass, you lose track of the plot of what you’ve watched. You try to google the summary till the episode/season you’ve watched, but end up getting spoilers for the next season and lose interest in the show. We’ve all been there.
 
