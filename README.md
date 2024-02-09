@@ -1,5 +1,4 @@
-# ThroneTalk - AI powered character Dialogue Generation
-
+# ThroneTalk - Game of Thrones Summarizer
 1. Project type - An Interactive Web Tool
 2. Questions of interest - Can we develop a model that can take a given input text and transform it into the style of a chosen Game of Thrones character, maintaining the character's speech patterns, vocabulary, and personality traits?
 3. The goal for the project output - 
