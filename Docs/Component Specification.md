@@ -26,15 +26,14 @@ Outputs: A concise summary of the requested episode or season, along with metada
     d. Episode/season images data (good to have)
 2. Clean the subtitles data
 3. Data preparation
-    a. Text preprocessing
+    a. Text preprocessing \
     b. Chunking text
 4. Implement the summarization
-    a. Finalize model for summarization
-    b. Train model for text generation
-    c. Fine tune the model on Game of Thrones data
-    d. Black-box testing of generated summary
+    a. Finalize model for summarization \
+    b. Train model for text generation \
+    c. Fine tune the model on Game of Thrones data \
+    d. Black-box testing of generated summary \
 5. User Interface
-    a. Decide on an initial design (prototype)
+    a. Decide on an initial design (prototype) \
     b. Implement using Streamlit
 6. Write test cases
-Implement Summary Generation
