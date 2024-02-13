@@ -1,4 +1,33 @@
-### Component Specification
+# Component Specification
 
-Software components. High level description of the software components such as: data manager, which provides a simplified interface to your data and provides application specific features (e.g., querying data subsets); and visualization manager, which displays data frames as a plot. Describe at least 3 components specifying: what it does, inputs it requires, and outputs it provides. If you have more significant components in your system, we highly suggest documenting those as well.
-Interactions to accomplish use cases. Describe how the above software components interact to accomplish your use cases. Include at least one interaction diagram.
+## Software Components
+
+### Data Manager - Raagul
+
+### Summarizer utility tool - Swarali
+
+### User Interface - Baisakhi
+
+### Component interaction - Abhinav
+
+### Preliminary Plan
+
+1. Scrape data \
+    a. Episode/season metadata \
+    b. Ratings info for each episode/season \
+    c. Episode/season summary \
+    d. Episode/season images data (good to have)
+2. Clean the subtitles data
+3. Data preparation
+    a. Text preprocessing
+    b. Chunking text
+4. Implement the summarization
+    a. Finalize model for summarization
+    b. Train model for text generation
+    c. Fine tune the model on Game of Thrones data
+    d. Black-box testing of generated summary
+5. User Interface
+    a. Decide on an initial design (prototype)
+    b. Implement using Streamlit
+6. Write test cases
+Implement Summary Generation
