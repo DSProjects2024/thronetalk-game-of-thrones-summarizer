@@ -32,7 +32,7 @@ Outputs: A concise summary of the requested episode or season, along with metada
     a. Finalize model for summarization \
     b. Train model for text generation \
     c. Fine tune the model on Game of Thrones data \
-    d. Black-box testing of generated summary \
+    d. Black-box testing of generated summary 
 5. User Interface
     a. Decide on an initial design (prototype) \
     b. Implement using Streamlit
