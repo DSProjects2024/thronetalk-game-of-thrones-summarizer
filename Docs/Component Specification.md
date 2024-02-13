@@ -7,15 +7,35 @@
 ### Summarizer Utility Tools 
 The Episode Summarizer Utility tool is a software component designed to generate concise summaries for Game of Thrones episodes or seasons based on user input. It will contain a summary generator class which will get input as episode number or season number from the Summarizer webpage. A sequence-to-sequence model with attention mechanism, transformer models, or pre-trained models like BERT and GPT can be employed to then use the episode dialogues, sentiments, key plot points and metadata from data manager to identify crucial moments that define the episode or season from GOT. 
 
-
 Inputs: Cleaned episode and season metadata and script data from Data Manager \
 Outputs: A concise summary of the requested episode or season, along with metadata and visualizations that enhance the user's understanding of the summarized content.
 
-### User Interface - Baisakhi
+### Episode Summarizer Webpage
+The Episode Summarizer Webpage serves as the user interface for our episode summarization system, providing concise and spoiler-free summaries of Game of Thrones episodes. It leverages machine learning models and episode metadata to generate summaries tailored to user preferences. It uses utilizes Python code to integrate Streamlit functions, such as dropdown menus for selecting seasons and episodes or a multiselect box for choosing multiple episodes, and markdown for displaying IMDb descriptions on clicking. Upon getting the input from the user it will run the Episode Summarizer Utility Tool and display the desired episode summary on Streamlit UI. 
 
-### Component interaction - Abhinav
+Inputs: 
+1. Episode Summarizer Utility Tool  
+2. User-selected episode (Dropdown) 
+
+Outputs: 
+1. Streamlit UI displaying episode summaries based on user input. 
 
 
+Functionality: 
+
+Dropdown Menu: Users can select the desired season and episode from a dropdown menu, ensuring they receive a summary up to their chosen episode without encountering spoilers. 
+
+Episode Summary: Upon selecting the desired episode, the Streamlit UI dynamically generates a summary of that episode, offering a brief overview of its key events and plot developments. 
+
+Spoiler Prevention: The system ensures that only information up to the selected episode is included in the summary, preventing spoilers for subsequent episodes. 
+
+Streamlit Integration: Utilizing Streamlit functions, the webpage provides an interactive and user-friendly experience, enhancing accessibility and ease of use. 
+
+Additional Features (Good to Have – if time permits): The webpage may include additional elements such as character highlights, notable quotes, or theme analysis to enrich the user's understanding of the episode. 
+
+### Component interaction diagram
+
+![alt text](images/comp_spec_uml.png "Title")
 
 ### Preliminary Plan
 
