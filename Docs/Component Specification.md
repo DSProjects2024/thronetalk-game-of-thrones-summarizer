@@ -2,7 +2,23 @@
 
 ## Software Components
 
-### Data Manager - Raagul
+### Data Manager
+1. Episode subtitles (cleaned dialogue for each character, per episode, per season, chunked as input vectors)
+
+Input: Information accessed from Data Constants (mentioned below) \
+Output: Preprocessed episode text. Cleaned and tokenized text from each episode's subtitles, stored in a dictionary where keys are episode IDs and values are lists of tokens.
+
+2. Episode and season metadata (title, rating, images and links, description, cast, director, etc.)
+
+Input: CSV file accessed via a local path in Data Constants (below) \
+Output: A dictionary containing the episode's metadata (information as key-value pairs).
+
+#### Data Constants
+This file contains links to the publicly stored cloud data needed to load episode metadata and episode scripts.
+
+Inputs: None
+Outputs: Path to datasets for the scripts to use
+
 
 ### Summarizer Utility Tools 
 The Episode Summarizer Utility tool is a software component designed to generate concise summaries for Game of Thrones episodes or seasons based on user input. It will contain a summary generator class which will get input as episode number or season number from the Summarizer webpage. A sequence-to-sequence model with attention mechanism, transformer models, or pre-trained models like BERT and GPT can be employed to then use the episode dialogues, sentiments, key plot points and metadata from data manager to identify crucial moments that define the episode or season from GOT. 
