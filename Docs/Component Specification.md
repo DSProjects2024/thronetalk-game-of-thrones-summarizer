@@ -49,9 +49,13 @@ Streamlit Integration: Utilizing Streamlit functions, the webpage provides an in
 
 Additional Features (Good to Have – if time permits): The webpage may include additional elements such as character highlights, notable quotes, or theme analysis to enrich the user's understanding of the episode. 
 
+---
+
 ### Component interaction diagram
 
 ![alt text](images/comp_spec_uml.png "Title")
+
+---
 
 ### Preliminary Plan
 
