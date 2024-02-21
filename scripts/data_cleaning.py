@@ -35,22 +35,8 @@ class DataCleaning:
         if speaker_col:
             self.data[speaker_col] =  self.data[speaker_col].apply(lambda x: x.split(' ')[0]) 
 
-
-
     def write_dialogues_to_csv(self, output_file_name, cols_to_write=['dialogue_with_speaker']):
         self.data[cols_to_write].to_csv(output_file_name)
-
-    def get_list_of_characters(self, from_season, to_season=None, from_episode=None, to_episode=None, season_col='Season_Number', episode_col='Episode_Number'):
-        if to_season:
-            season_data = self.data.loc[(self.data[season_col] >= from_season) & (self.data[season_col] <= to_season)] 
-        else:
-            season_data = self.data.loc[self.data[season_col] == from_season]
-        if to_episode:
-            episode_data = season_data.loc[(season_data[episode_col] >= from_episode) & (season_data[episode_col] <= to_episode)]
-        else:
-            episode_data = season_data.loc[season_data[episode_col] == from_episode]
-        characters = episode_data['Speaker'].str.lower().unique().tolist()
-        return characters
 
         
     def data_cleaning_main(self, file_path):
@@ -58,11 +44,9 @@ class DataCleaning:
         self.get_name_number()
         self.get_dialogue_with_speaker()
         self.remove_additional_punct(speaker_col='Speaker')
-        self.write_dialogues_to_csv('data/ouput_dialogues.csv')
+        self.write_dialogues_to_csv('data/ouput_dialogues.csv', cols_to_write=self.data.columns)
 
 
 if __name__ == '__main__':
     data_cleaner = DataCleaning()
     data_cleaner.data_cleaning_main('data/game-of-thrones.csv')
-    s1_characters = data_cleaner.get_list_of_characters(from_season=1, to_season=None, from_episode=1, to_episode=5, season_col='Season_Number', episode_col='Episode_Number')
-    print(s1_characters)
