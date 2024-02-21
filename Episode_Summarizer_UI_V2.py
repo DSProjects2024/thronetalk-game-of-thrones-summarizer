@@ -2,6 +2,13 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import base64
+import os
+
+# Get the current directory of the script
+current_directory = os.path.dirname(__file__)
+
+# Define the path to the CSV file relative to the current directory
+csv_file_path = os.path.join(current_directory, 'data', 'Season_Episode_MultiEpisode.csv')
 
 #st.image("back.jpg", use_column_width=True)
 
@@ -18,7 +25,6 @@ def set_background(png_file):
     background-image: url("data:image/jpg;base64,%s");
     background-size: cover;
     }
-    </style>
     ''' % bin_str
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
@@ -27,10 +33,10 @@ def remove_zeros(lst):
     return [x for x in lst if x != '0']
 
 
-set_background('back.jpg')
+#set_background('back.jpg')
 st.title('Game of Thrones - Episode Summarizer')
 
-df = pd.read_csv('Season_Episode_MultiEpisode.csv')
+df = pd.read_csv(csv_file_path)
 seasons = df.columns.tolist()
 
 st.sidebar.title('Pick From and To Season - Episode')
