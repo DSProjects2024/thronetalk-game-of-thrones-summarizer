@@ -16,45 +16,80 @@ from nltk.stem import WordNetLemmatizer
 
 class visualizationGenerator:
     def __init__(self, seasonFrom=1, episodeFrom=1  , seasonTo=1, episodeTo=1):
-        self.episodeFrom = episodeFrom
-        self.episodeTo = episodeTo
-        self.seasonFrom = seasonFrom
-        self.seasonTo = seasonTo
+        self.episodeFrom = int(episodeFrom)
+        self.episodeTo = int(episodeTo)
+        self.seasonFrom = int(seasonFrom)
+        self.seasonTo = int(seasonTo)
         self.df = pd.read_csv("data/ouput_dialogues.csv")
     
     def preProcessDataForCharacter(self, character):
+        #s2 e3
         df = self.df
         episodeArr = []
         seasonArr = []
-
-        for i in range(self.episodeFrom, self.episodeTo+1):
-            episodeArr.append('e'+str(i))
-        for i in range(self.seasonFrom,self.seasonTo+1):
-            seasonArr.append("season-0"+str(i))
-
-        characterMask = df[df['Speaker'] == character]
-        seasonMaskDF = characterMask[characterMask['Season'].isin(seasonArr)]
-        episodeMaskDF = seasonMaskDF[seasonMaskDF['Episode'].isin(episodeArr)]
+        characterMask = df[df['Speaker'] == character.upper()]
+        episodeArr = []
+        seasonArr = []
         dialogueString = ''
-        for dialogue in episodeMaskDF.values:
-            dialogueString = dialogueString + dialogue[1]
+        for i in range(self.seasonFrom,self.seasonTo+1):
+            seasonMaskDF = characterMask[characterMask['Season'] == "season-0"+str(i)]
+            for j in range(1, 11):
+                # sesason 2 epi 4
+                if(i  == self.seasonFrom and j>=self.episodeFrom):
+                    episodeMaskDF = seasonMaskDF[seasonMaskDF['Episode'] == 'e'+str(j)]
+                    #dialogueString = ''
+                    for dialogue in episodeMaskDF.values:
+                        dialogueString = dialogueString + dialogue[1]
+                    #print("season: "+str(i)+" episode: "+str(j))
+                elif(i  == self.seasonTo and j<=self.episodeTo):
+                    episodeMaskDF = seasonMaskDF[seasonMaskDF['Episode'] == 'e'+str(j)]
+                    #dialogueString = ''
+                    for dialogue in episodeMaskDF.values:
+                        dialogueString = dialogueString + dialogue[1]
+                    #print("season: "+str(i)+" episode: "+str(j))
+                elif(i<self.seasonTo and i>self.seasonFrom):
+                    episodeMaskDF = seasonMaskDF[seasonMaskDF['Episode'] == 'e'+str(j)]
+                    #dialogueString = ''
+                    for dialogue in episodeMaskDF.values:
+                        dialogueString = dialogueString + dialogue[1]
+                    #print("season: "+str(i)+" episode: "+str(j))
 
         return(dialogueString)
     
     def preProcessDataForCharacterPerEpisode(self, character):
         df = self.df
         charEpisodeWiseArr = []
-        characterMask = df[df['Speaker'] == character]
+        characterMask = df[df['Speaker'] == character.upper()]
+        #print(characterMask.head(10))
         episodeArr = []
         seasonArr = []
+        #s3 epi 6 to s5 epi 2
         for i in range(self.seasonFrom,self.seasonTo+1):
             seasonMaskDF = characterMask[characterMask['Season'] == "season-0"+str(i)]
-            for j in range(self.episodeFrom, self.episodeTo+1):
-                episodeMaskDF = seasonMaskDF[seasonMaskDF['Episode'] == 'e'+str(j)]
-                dialogueString = ''
-                for dialogue in episodeMaskDF.values:
-                    dialogueString = dialogueString + dialogue[1]
-                charEpisodeWiseArr.append(dialogueString)
+            for j in range(1, 11):
+                # sesason 2 epi 4
+                if(i  == self.seasonFrom and j>=self.episodeFrom):
+                    episodeMaskDF = seasonMaskDF[seasonMaskDF['Episode'] == 'e'+str(j)]
+                    dialogueString = ''
+                    for dialogue in episodeMaskDF.values:
+                        dialogueString = dialogueString + dialogue[1]
+                    charEpisodeWiseArr.append(dialogueString)
+                    #print("season: "+str(i)+" episode: "+str(j))
+                elif(i  == self.seasonTo and j<=self.episodeTo):
+                    episodeMaskDF = seasonMaskDF[seasonMaskDF['Episode'] == 'e'+str(j)]
+                    dialogueString = ''
+                    for dialogue in episodeMaskDF.values:
+                        dialogueString = dialogueString + dialogue[1]
+                    charEpisodeWiseArr.append(dialogueString)
+                    #print("season: "+str(i)+" episode: "+str(j))
+                elif(i<self.seasonTo and i>self.seasonFrom):
+                    episodeMaskDF = seasonMaskDF[seasonMaskDF['Episode'] == 'e'+str(j)]
+                    dialogueString = ''
+                    for dialogue in episodeMaskDF.values:
+                        dialogueString = dialogueString + dialogue[1]
+                    charEpisodeWiseArr.append(dialogueString)
+                    #print("season: "+str(i)+" episode: "+str(j))
+                
         return charEpisodeWiseArr
 
     
@@ -108,15 +143,16 @@ class visualizationGenerator:
     
     def get_sentiment(self, charArr):
         totArr = []
-        sentimentArr = []
         for char in charArr:
+            sentimentArr = []
             sentimentArrperCharperEpisode = self.preProcessDataForCharacterPerEpisode(char)
+            print("length is: "+str(len(sentimentArrperCharperEpisode)))
             for episode in sentimentArrperCharperEpisode:
                 processed_text = self.preprocess_text_sentiment(episode)
                 analyzer = SentimentIntensityAnalyzer()
                 scores = analyzer.polarity_scores(processed_text)
                 #sentiment = 1 if scores['compound'] > 0 else 0
-                print(scores)
+                #print(scores)
                 sentimentArr.append(scores['compound'])
             totArr.append(sentimentArr)
         return totArr
@@ -131,11 +167,19 @@ class visualizationGenerator:
         return listofSentiments
     
 
-    def sentimentAnalysisVisualization(self):
-        self.preProcessData()
-        return ''
+    def sentimentAnalysisVisualization(self, charArr):
+        sentimentArr = self.get_sentiment(charArr)
+        chart_data = pd.DataFrame(np.asarray(sentimentArr).transpose(), columns=["a", "b"])
+        #print(np.asarray(sentimentArr).transpose())
+        #print(sentimentArr)
+        #st.line_chart(chart_data)
+        #plt.plot(chart_data)
+        # #plt.axis("off")
+        #plt.show()
+        #st.pyplot()
+        return chart_data
     
-if __name__ == '__main__':
-    vg = visualizationGenerator(1,1,2,3)
-    vg.multiWordCloud(['WILL','WAYMAR'])
-    vg.get_sentiment(['WILL','WAYMAR'])
+# if __name__ == '__main__':
+#     vg = visualizationGenerator(3,5,5,4)
+#     vg.multiWordCloud(['TYRION','CERSEI'])
+#     vg.sentimentAnalysisVisualization(['TYRION','WAYMAR'])
