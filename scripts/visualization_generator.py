@@ -12,6 +12,7 @@ from nltk.stem import WordNetLemmatizer
 nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('vader_lexicon')
+nltk.download('stopwords')
 
 class visualizationGenerator:
     def __init__(self, seasonFrom=1, episodeFrom=1  , seasonTo=1, episodeTo=1):
