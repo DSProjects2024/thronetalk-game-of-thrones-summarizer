@@ -9,10 +9,9 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
-#import nltk
-# nltk.download('punkt')
-# nltk.download('wordnet')
-# nltk.download('vader_lexicon')
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('vader_lexicon')
 
 class visualizationGenerator:
     def __init__(self, seasonFrom=1, episodeFrom=1  , seasonTo=1, episodeTo=1):
