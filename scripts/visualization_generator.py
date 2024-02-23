@@ -146,7 +146,7 @@ class visualizationGenerator:
         for char in charArr:
             sentimentArr = []
             sentimentArrperCharperEpisode = self.preProcessDataForCharacterPerEpisode(char)
-            print("length is: "+str(len(sentimentArrperCharperEpisode)))
+            # print("length is: "+str(len(sentimentArrperCharperEpisode)))
             for episode in sentimentArrperCharperEpisode:
                 processed_text = self.preprocess_text_sentiment(episode)
                 analyzer = SentimentIntensityAnalyzer()
@@ -169,7 +169,7 @@ class visualizationGenerator:
 
     def sentimentAnalysisVisualization(self, charArr):
         sentimentArr = self.get_sentiment(charArr)
-        chart_data = pd.DataFrame(np.asarray(sentimentArr).transpose(), columns=["a", "b"])
+        chart_data = pd.DataFrame(np.asarray(sentimentArr).transpose())
         #print(np.asarray(sentimentArr).transpose())
         #print(sentimentArr)
         #st.line_chart(chart_data)

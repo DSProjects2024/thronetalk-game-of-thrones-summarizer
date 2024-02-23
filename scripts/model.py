@@ -45,4 +45,4 @@ class model:
 
 if __name__ == '__main__':
     got = model(1,1,2,2)
-    print(got.summarize()) 
+    # print(got.summarize()) 
