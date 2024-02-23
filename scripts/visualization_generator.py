@@ -27,7 +27,8 @@ class visualizationGenerator:
         df = self.df
         episodeArr = []
         seasonArr = []
-        characterMask = df[df['Speaker'] == character.upper()]
+        characterMask = df[df['Speaker'].str.upper() == character.upper()]
+        print(characterMask)
         episodeArr = []
         seasonArr = []
         dialogueString = ''
@@ -59,7 +60,7 @@ class visualizationGenerator:
     def preProcessDataForCharacterPerEpisode(self, character):
         df = self.df
         charEpisodeWiseArr = []
-        characterMask = df[df['Speaker'] == character.upper()]
+        characterMask = df[df['Speaker'].str.upper() == character.upper()]
         #print(characterMask.head(10))
         episodeArr = []
         seasonArr = []
@@ -179,7 +180,11 @@ class visualizationGenerator:
         #st.pyplot()
         return chart_data
     
-# if __name__ == '__main__':
-#     vg = visualizationGenerator(3,5,5,4)
-#     vg.multiWordCloud(['TYRION','CERSEI'])
-#     vg.sentimentAnalysisVisualization(['TYRION','WAYMAR'])
+if __name__ == '__main__':
+    vg = visualizationGenerator(1,1,1,3)
+    vg.multiWordCloud([
+  "narrator",
+  "eddard",
+  "catelyn"
+])
+    vg.sentimentAnalysisVisualization(['TYRION','WAYMAR'])
