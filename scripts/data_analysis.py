@@ -37,4 +37,4 @@ if __name__ == '__main__':
     cleaned_data = pd.read_csv('data/ouput_dialogues.csv')
     data_analysis = DataAnalysis(cleaned_data)
     top_5_characters, top_5_characters_dialogues = data_analysis.get_top_n_characters(n_char=10, from_season=1, to_season=1, from_episode=1, to_episode=5, season_col='Season_Number', episode_col='Episode_Number')
-    print(top_5_characters)
+    # print(top_5_characters)
