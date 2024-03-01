@@ -1,0 +1,7 @@
+name: thronetalks
+channels:
+  - defaults
+dependencies:
+  - pip:
+      - -r requirements.txt
+prefix: /Users/abhinavduvvuri/opt/anaconda3/envs/thronetalks
