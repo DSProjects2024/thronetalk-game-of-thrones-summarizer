@@ -8839,7 +8839,7 @@ Riders appraoch.,,e8-The Prince of Winterfell,season-02,Game-of-Thrones
 CATELYN doesn't answer. She looks up at him.,,e8-The Prince of Winterfell,season-02,Game-of-Thrones
  Why?,ROBB,e8-The Prince of Winterfell,season-02,Game-of-Thrones
  For the girls.,CATELYN,e8-The Prince of Winterfell,season-02,Game-of-Thrones
- You betrayed me.,-ROBB,e8-The Prince of Winterfell,season-02,Game-of-Thrones
+ You betrayed me.,#NAME?,e8-The Prince of Winterfell,season-02,Game-of-Thrones
  Robb,CATELYN,e8-The Prince of Winterfell,season-02,Game-of-Thrones
  No! You knew I would not allow it and you did it anyway.,ROBB,e8-The Prince of Winterfell,season-02,Game-of-Thrones
 " Bran and Rickon are captives in Winterfell. Sansa and Arya are captives in King's Landing. I have five children, and only one of them is free.",CATELYN,e8-The Prince of Winterfell,season-02,Game-of-Thrones
@@ -10314,7 +10314,7 @@ KRAZNYS turns around to face DAENERYS. The Unsullied soldier steps back into for
  How many do you have to sell?,DAENERYS,e1-Valar Dohaeris,season-03,Game-of-Thrones
  ( Missandei speaking Valyrian ),MISSANDEI,e1-Valar Dohaeris,season-03,Game-of-Thrones
 KRAZNYS holds up eight fingers.,,e1-Valar Dohaeris,season-03,Game-of-Thrones
- 8000,MISSANDEI,e1-Valar Dohaeris,season-03,Game-of-Thrones
+8000,MISSANDEI,e1-Valar Dohaeris,season-03,Game-of-Thrones
  ( speaking Valyrian ) Tell the Westerosi whore she has until tomorrow.,KRAZNYS MO NAKLOZ,e1-Valar Dohaeris,season-03,Game-of-Thrones
  Master Kraznys asks that you please hurry. Many other buyers are interested.,MISSANDEI,e1-Valar Dohaeris,season-03,Game-of-Thrones
 "KRAZNYS sheaths the knife. The Unsullied make way for KRAZNYS and MISSANDEI as the exit, then return to formation.",,e1-Valar Dohaeris,season-03,Game-of-Thrones
@@ -11676,7 +11676,7 @@ HOT PIE hands ARYA the bread that he baked. It is shaped like an animal of some 
  What is it?,ARYA,e3-Walk of Punishment,season-03,Game-of-Thrones
   It's a wolf.,HOT PIE,e3-Walk of Punishment,season-03,Game-of-Thrones
 " Yes, it is.",GENDRY,e3-Walk of Punishment,season-03,Game-of-Thrones
-	 That's the tail?,ARYA,e3-Walk of Punishment,season-03,Game-of-Thrones
+"	 That's the tail?",ARYA,e3-Walk of Punishment,season-03,Game-of-Thrones
  Yeah.,HOT PIE,e3-Walk of Punishment,season-03,Game-of-Thrones
 " Well, be safe.",GENDRY,e3-Walk of Punishment,season-03,Game-of-Thrones
 " Yeah, you, too. Don't get stabbed.",HOT PIE,e3-Walk of Punishment,season-03,Game-of-Thrones
@@ -12621,7 +12621,7 @@ JON and YGRITTE bring firewood. TORMUND sits as ORELL greets them with disdain.,
 " Aye, Castle Black. Everyone knows Castle Black. Which others?",ORELL,e5-Kissed by Fire,season-03,Game-of-Thrones
  Eastwatch-by-the-Sea and the Shadow Tower.,JON,e5-Kissed by Fire,season-03,Game-of-Thrones
  How many men remain in Castle Black?,TORMUND,e5-Kissed by Fire,season-03,Game-of-Thrones
-" 1,000",JON,e5-Kissed by Fire,season-03,Game-of-Thrones
+"1,000",JON,e5-Kissed by Fire,season-03,Game-of-Thrones
  Liar.,ORELL,e5-Kissed by Fire,season-03,Game-of-Thrones
 Jon drops his bundle and steps towards Orell.,,e5-Kissed by Fire,season-03,Game-of-Thrones
  What happens to your eagle after I kill you? Does he drift away like a kite with his strings cut or does he just flop dead to the ground?,JON,e5-Kissed by Fire,season-03,Game-of-Thrones
@@ -13424,7 +13424,7 @@ BLACK WALDER looks at EDMURE.,,e6-The Climb,season-03,Game-of-Thrones
 "BRYDEN, ROBB and LOTHAR also stare at. EDMURE.",,e6-The Climb,season-03,Game-of-Thrones
  (chuckles) No.,EDMURE,e6-The Climb,season-03,Game-of-Thrones
  How old is she?,EDMURE,e6-The Climb,season-03,Game-of-Thrones
- 19,LOTHAR,e6-The Climb,season-03,Game-of-Thrones
+19,LOTHAR,e6-The Climb,season-03,Game-of-Thrones
  Could I see her first?,EDMURE,e6-The Climb,season-03,Game-of-Thrones
  You want to count her teeth? We depart for the Twins in the morning. We need an answer before we leave and a wedding not more than a fortnight thereafter or this alliance is at an end.,BLACK WALDER,e6-The Climb,season-03,Game-of-Thrones
  Your father does realize we're in the middle of a war?,BRYNDEN,e6-The Climb,season-03,Game-of-Thrones
@@ -14511,7 +14511,7 @@ TYRION sits on the side of the bed.,,e8-Second Sons,season-03,Game-of-Thrones
  Astoundingly long.,TYRION,e8-Second Sons,season-03,Game-of-Thrones
  What?,SANSA,e8-Second Sons,season-03,Game-of-Thrones
   Neck. You have one. How old are you exactly?,TYRION,e8-Second Sons,season-03,Game-of-Thrones
- 14,SANSA,e8-Second Sons,season-03,Game-of-Thrones
+14,SANSA,e8-Second Sons,season-03,Game-of-Thrones
 "  Well, talk won't make you any older. My lord father has commanded me to consummate this marriage.",TYRION,e8-Second Sons,season-03,Game-of-Thrones
 SANSA takes a breath. She pours herself some wine and drinks it. TYRION offers a drunken toast of solidarity. SANSA moves quietly and obediently to the bed and undresses her many layers while TYRION watches.,,e8-Second Sons,season-03,Game-of-Thrones
 " Stop. I can't. I could, I won't.",TYRION,e8-Second Sons,season-03,Game-of-Thrones
@@ -14525,7 +14525,7 @@ TYRION toasts SANSA.,,e8-Second Sons,season-03,Game-of-Thrones
 "The encampment bustles in spite of the late hour, with the Unsullied patrolling the paths between the tents. One Unsullied trots through camp alone.",,e8-Second Sons,season-03,Game-of-Thrones
  Daenerys's tent,INT,e8-Second Sons,season-03,Game-of-Thrones
 MISSANDEI bathes DAENERYS in a tub by candlelight,,e8-Second Sons,season-03,Game-of-Thrones
- 19,DAENERYS,e8-Second Sons,season-03,Game-of-Thrones
+19,DAENERYS,e8-Second Sons,season-03,Game-of-Thrones
 " Yes, Your Grace.",MISSANDEI,e8-Second Sons,season-03,Game-of-Thrones
  How can anyone speak 19 languages?,DAENERYS,e8-Second Sons,season-03,Game-of-Thrones
   It only took Your Grace a year to learn Dothraki reasonably well.,MISSANDEI,e8-Second Sons,season-03,Game-of-Thrones
@@ -16756,7 +16756,7 @@ Sansa climbs the latter.,,e3-Breaker of Chains,season-04,Game-of-Thrones
  Lord Baelish. I promised I'd get her to you safely.,SER DONTOS,e3-Breaker of Chains,season-04,Game-of-Thrones
 " Softly, my friend... Voices carry over water.",LITTLEFINGER,e3-Breaker of Chains,season-04,Game-of-Thrones
 " I should get back before someone thinks to look for me.  LITTLEFINGER First you'll want your pay. 10,000 was it?",SER DONTOS,e3-Breaker of Chains,season-04,Game-of-Thrones
-" 10,000.",SER DONTOS,e3-Breaker of Chains,season-04,Game-of-Thrones
+"10,000.00",SER DONTOS,e3-Breaker of Chains,season-04,Game-of-Thrones
 Littlefinger clicks his finger and two men with crossbows walk to the edge of the ship. They aim at Ser Dontos.,,e3-Breaker of Chains,season-04,Game-of-Thrones
  Wait!,SER DONTOS,e3-Breaker of Chains,season-04,Game-of-Thrones
 "Both men shoot at Ser Dontos, he groans in pain before lying dead. Sansa screams and Littlefinger hushes her.",,e3-Breaker of Chains,season-04,Game-of-Thrones
@@ -18230,9 +18230,9 @@ TYCHO motions for DAVOS to sit. He does.,,e6-The Laws of God and Men,season-04,G
  And you feel your blood gives you a claim on our gold?,TYCHO,e6-The Laws of God and Men,season-04,Game-of-Thrones
  More than any man living.,STANNIS,e6-The Laws of God and Men,season-04,Game-of-Thrones
 " Across the Narrow Sea, your books are filled with words like ""usurper"" and ""madman"" and ""blood right."" Here, our books are filled with numbers. We prefer the stories they tell. More plain. Less open to interpretation. How many fighting men remain loyal to you?",TYCHO,e6-The Laws of God and Men,season-04,Game-of-Thrones
-" 4,000.",STANNIS,e6-The Laws of God and Men,season-04,Game-of-Thrones
+"4,000.00",STANNIS,e6-The Laws of God and Men,season-04,Game-of-Thrones
 " And how many ships do you have? The ones still afloat, Ser Davos, not at the bottom of Blackwater Bay.",TYCHO,e6-The Laws of God and Men,season-04,Game-of-Thrones
- 32.,DAVOS,e6-The Laws of God and Men,season-04,Game-of-Thrones
+32,DAVOS,e6-The Laws of God and Men,season-04,Game-of-Thrones
 " And how much wheat and barley and beef and pork do you produce on Dragonstone to feed your 4,000 men on your 32 ships?",TYCHO,e6-The Laws of God and Men,season-04,Game-of-Thrones
  None.,STANNIS,e6-The Laws of God and Men,season-04,Game-of-Thrones
  You can see why these numbers seem unlikely to add up to a happy ending from our perspective. I'm afraid we must respectfully decline your request. But we thank you for paying us the honor of your visit.,TYCHO,e6-The Laws of God and Men,season-04,Game-of-Thrones
@@ -18247,7 +18247,7 @@ STANNIS stands to leave. DAVOS rises as well.,,e6-The Laws of God and Men,season
  Humor me.,DAVOS,e6-The Laws of God and Men,season-04,Game-of-Thrones
   Tywin Lannister.,TYCHO,e6-The Laws of God and Men,season-04,Game-of-Thrones
  How old is Tywin Lannister?,DAV OS,e6-The Laws of God and Men,season-04,Game-of-Thrones
-  67.,TYCHO,e6-The Laws of God and Men,season-04,Game-of-Thrones
+67,TYCHO,e6-The Laws of God and Men,season-04,Game-of-Thrones
 " 67. And when he dies, who's in command? A half-grown boy, the product of incest? Cersei Lannister, a queen whose people despise her? Jaime Lannister, a man best known for killing the king he was sworn to protect? When Tywin's gone, who do you back?",STANNIS,e6-The Laws of God and Men,season-04,Game-of-Thrones
  That is a problem for another time.,TYCHO,e6-The Laws of God and Men,season-04,Game-of-Thrones
 " Begging your pardon, I think it's a problem for now. There's only one reliable leader left in Westeros. Stannis. He's got the birthright. He's in his prime. He's a tried and tested battle commander. And he doesn't just talk about paying people back, he does it.",DAVOS,e6-The Laws of God and Men,season-04,Game-of-Thrones
@@ -22892,7 +22892,7 @@ A hand goes up.,,e7,season-05,Game-of-Thrones
 A hand goes up.,,e7,season-05,Game-of-Thrones
  15? 15 golds honors. Do I have 16?,MALKO,e7,season-05,Game-of-Thrones
 A man in the front who has been studying Jorah intently raises his hand.,,e7,season-05,Game-of-Thrones
- 20.,SLAVE BUYER,e7,season-05,Game-of-Thrones
+20,SLAVE BUYER,e7,season-05,Game-of-Thrones
  Sold!,MALKO,e7,season-05,Game-of-Thrones
 Jorah is taken away.,,e7,season-05,Game-of-Thrones
  Wait! You have to buy me as well.,TYRION,e7,season-05,Game-of-Thrones
@@ -27006,7 +27006,7 @@ JON SNOW nods.,,e7,season-06,Game-of-Thrones
 " House Mormont has kept faith with House Stark for 1,000 years. We will not break faith today.",LYANNA,e7,season-06,Game-of-Thrones
 " Thank you, my lady. How many fighting men can we expect?",JON SNOW,e7,season-06,Game-of-Thrones
 LYANNA leans to her military commander and they whisper to each other.,,e7,season-06,Game-of-Thrones
- 62.,LYANNA,e7,season-06,Game-of-Thrones
+62,LYANNA,e7,season-06,Game-of-Thrones
  62?,JON SNOW,e7,season-06,Game-of-Thrones
 " We are not a large house, but we’re a proud one. And every man from Bear Island fights with the strength of 10 mainlanders.",LYANNA,e7,season-06,Game-of-Thrones
 " If they’re half as ferocious as their lady, the Boltons are doomed.",DAVOS,e7,season-06,Game-of-Thrones
@@ -30228,7 +30228,7 @@ The men push the boat into the sea.  DAENERYS and TYRION remain on the beach wat
 SAM is seated at a table surround by papers and candles.  He is writing notes into a book.  Gilly is seated across from him reading aloud from a tome.  SAM JR. is playing on the bed.,,e5,season-07,Game-of-Thrones
   Do you know how many steps there are in the Citadel?,GILLY,e5,season-07,Game-of-Thrones
   No.,SAM,e5,season-07,Game-of-Thrones
-"  15,782.",GILLY,e5,season-07,Game-of-Thrones
+"15,782.00",GILLY,e5,season-07,Game-of-Thrones
 SAM looks up from his work annoyed.  He remains silent and continues working.,,e5,season-07,Game-of-Thrones
   Guess how many windows are in the Great Sept of Baelor.,GILLY,e5,season-07,Game-of-Thrones
 SAMWELL looks away and pauses.,,e5,season-07,Game-of-Thrones
@@ -31780,7 +31780,7 @@ Men are removing dragonglass weapons from carriages and handing to soldier. The 
  We have dragonglass and Valyrian steel.,JON (V.O.),e2,season-08,Game-of-Thrones
  WINTERFELL – OUTSIDE FRONT GATE,CUT TO,e2,season-08,Game-of-Thrones
 "The Unsullied pull ropes, causing a large boulder to be thrown into the air by a large trebuchet. More soldiers march out of the gates of Winterfell.",,e2,season-08,Game-of-Thrones
- But there are too many of them.,JON(V.O.),e2,season-08,Game-of-Thrones
+ But there are too many of them.,JON (V.O.),e2,season-08,Game-of-Thrones
  WINTERFELL – BATTLEMENTS,CUT TO,e2,season-08,Game-of-Thrones
 Archers walk up to the edge of the battlements with their bow and arrows. We see a man stretch the bow string,,e2,season-08,Game-of-Thrones
  Far too many.,JON (V.O.),e2,season-08,Game-of-Thrones
