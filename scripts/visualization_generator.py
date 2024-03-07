@@ -6,13 +6,17 @@ from wordcloud import WordCloud
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.corpus import stopwords
+from wordcloud import STOPWORDS
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
+from collections import Counter
+import re
 
 nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('vader_lexicon')
 nltk.download('stopwords')
+nltk.download('omw-1.4')
 
 class visualizationGenerator:
     def __init__(self, seasonFrom=1, episodeFrom=1  , seasonTo=1, episodeTo=1):
@@ -20,7 +24,7 @@ class visualizationGenerator:
         self.episodeTo = int(episodeTo)
         self.seasonFrom = int(seasonFrom)
         self.seasonTo = int(seasonTo)
-        self.df = pd.read_csv("data/ouput_dialogues.csv")
+        self.df = pd.read_csv("../data/ouput_dialogues.csv")
     
     def preProcessDataForCharacter(self, character):
         #s2 e3
@@ -116,15 +120,26 @@ class visualizationGenerator:
     def multiWordCloud(self, charArr):
         plot_obj_arr = []
         for char in charArr:
+            stopwords = set(STOPWORDS)
             wordCloudStr = self.preProcessDataForCharacter(char)
-            wordcloud = WordCloud().generate(wordCloudStr)
-            # plt.imshow(wordcloud, interpolation='bilinear')
-            # plt.axis("off")
-            # plt.show()
-            # st.pyplot()
+            words = wordCloudStr.lower().split()
+            words = [re.sub("[.,!?:;-='...'@#_]", " ", s) for s in words]
+            words = [re.sub(r'\d+', '', w) for w in words]
+            words = [word.strip() for word in words if word not in stopwords]
+            words.remove('')
+            lemmatiser = WordNetLemmatizer()
+            lem_words = [lemmatiser.lemmatize(w, pos='v') for w in words]
+            words_counter = Counter(lem_words)
+            wordcloud = WordCloud(stopwords=stopwords)
+            wordcloud.generate_from_frequencies(words_counter)
+            
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis("off")
+            plt.show()
+            st.pyplot()
             plot_obj_arr.append(wordcloud)
         return plot_obj_arr
-            
+    
     def wordCloud(self):
         wordCloudStr = self.preProcessData()
         wordcloud = WordCloud().generate(wordCloudStr)
@@ -136,10 +151,12 @@ class visualizationGenerator:
     def preprocess_text_sentiment(self, text):
         #TODO - if a character does not speak in a given episode his sentiment should be None instead of 0.0
         tokens = word_tokenize(text)
-        filtered_tokens = [token for token in tokens if token not in stopwords.words('english')]
+        filtered_tokens = []
+        for token in tokens:
+            if token not in stopwords.words('english'):
+                filtered_tokens.append(token)
         lemmatizer = WordNetLemmatizer()
-        lemmatized_tokens = [lemmatizer.lemmatize(token) for token in filtered_tokens]
-        processed_text = ' '.join(lemmatized_tokens)
+        processed_text = ' '.join([lemmatizer.lemmatize(each_token) for each_token in filtered_tokens])
         return processed_text
     
     def get_sentiment(self, charArr):
