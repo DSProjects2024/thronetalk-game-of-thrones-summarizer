@@ -1,5 +1,5 @@
 import os
-import openai
+from openai import AzureOpenAI
 import streamlit as st
 class model:
     def __init__(self, seasonFrom=1, episodeFrom=1  , seasonTo=1, episodeTo=1):
@@ -17,31 +17,32 @@ class model:
         return messageText 
 
     def azureAPICall(self, messageText):
-        openai.api_type = "azure"
-        openai.api_base = st.secrets["API_BASE"]
-        #"https://soft-proj.openai.azure.com/"
-        openai.api_version = "2023-07-01-preview"
-        openai.api_key = st.secrets["API_KEY"]
-        #need to secure apikey. Use tip#6 https://blog.streamlit.io/8-tips-for-securely-using-api-keys/
-        completion = openai.ChatCompletion.create(
-        engine="gpt35",
+        client = AzureOpenAI(
+            azure_endpoint = st.secrets["AZURE_ENDPOINT"], 
+            api_key = st.secrets["AZURE_OPENAI_KEY"],
+            api_version="2024-02-15-preview"
+)
+        
+        completion = client.chat.completions.create(
+        model="ThroneTalk", # model = "deployment_name"
         messages = messageText,
-        temperature=0.09,
-        max_tokens=4096,
+        temperature=0.7,
+        max_tokens=800,
         top_p=0.95,
         frequency_penalty=0,
         presence_penalty=0,
         stop=None
         )
-        completion = 'This is a test completion. API has been commented out '+ str(messageText)
-        return completion
-    
-    def extractOutput(self, completion):
-        return completion
+        #completion = 'This is a test completion. API has been commented out '+ str(messageText)
+        return completion.choices[0].message.content
     
     def summarize(self):
         summary = ''
         messageText = self.createSummarizerInput()
-        rawData = self.azureAPICall(messageText)
-        summary = self.extractOutput(rawData)
+        summary = self.azureAPICall(messageText)
+        #summary = self.extractOutput(rawData)
         return summary
+
+if __name__ == '__main__':
+    got = model(1,1,2,2)
+    # print(got.summarize()) 

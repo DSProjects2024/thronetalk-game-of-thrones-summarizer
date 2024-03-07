@@ -1,12 +1,21 @@
-from imdb import Cinemagoer
+'''
+Contains the implementation of the logic to get the metadata
+for the show and all episodes. Uses dependencies ImdbPY and Pandas.
+'''
 import json
+from imdb import Cinemagoer
 import pandas as pd
 
 def get_show_metadata(show_id):
+    '''
+    Gets all the relevant the metadata for the show. Requires a 7 digit string id of
+    the show (only numeric values), which must be the IMDB id for the show. Returns a
+    dictionary with the relevant metadata like title, genres, ratings etc.
+    '''
     if not show_id or len(show_id) == 0:
         raise ValueError('Provide a valid show_id!')
-    ia = Cinemagoer()
-    got = ia.get_movie(show_id)
+    scraper = Cinemagoer()
+    got = scraper.get_movie(show_id)
     relevant_keys = [
         'title',
         'number of seasons',
@@ -29,14 +38,24 @@ def get_show_metadata(show_id):
     return show_data
 
 def write_show_metadata(output_file, dict_data):
+    '''
+    Writes the show metadata into output file. Takes two inputs - 
+    1. output_file - must be of string type, should be of type `.json`
+    2. dict_data - the output from `get_show_metadata` function
+    '''
     if len(output_file) < 5 or '.json' not in output_file:
         raise ValueError('Provide a valid output_file of .json type.')
     if not dict_data or len(dict_data.keys()) == 0:
         raise ValueError('Provide a valid dictionary data to write to the output file!')
-    with open(output_file, 'w') as outfile:
+    with open(output_file, 'w', encoding="utf-8") as outfile:
         json.dump(dict_data, outfile, sort_keys=True, indent=2)
 
-def format_episode_metadata(episode_metadata):
+def _format_episode_metadata(episode_metadata):
+    '''
+    Takes IMDBPy episode metadata as input and returns a dictionary of formatted values
+    of the relevant fields for data analysis. To be accessed only by `get_episode_metadata`
+    function.
+    '''
     relevant_keys = [
         'title',
         'synopsis',
@@ -69,37 +88,52 @@ def format_episode_metadata(episode_metadata):
     return show_data
 
 def get_episode_metadata():
-    ia = Cinemagoer()
+    '''
+    Gets the relevant the metadata for all the episodes from every season of the show.
+    Currently configured to run only on Game of Thrones show.
+    '''
+    scraper = Cinemagoer()
     episodes = []
-    for season in IMDB_EPISODE_IDS.keys():
-        for episode in IMDB_EPISODE_IDS[season]:
-            episode_metadata = ia.get_movie(episode)
-            formatted_metadata = format_episode_metadata(episode_metadata)
+    for _, episodes_list in IMDB_EPISODE_IDS.items():
+        for episode in episodes_list:
+            episode_metadata = scraper.get_movie(episode)
+            formatted_metadata = _format_episode_metadata(episode_metadata)
             episodes.append(formatted_metadata)
     return episodes
 
 def write_episode_metadata(output_file, episodes_data):
+    '''
+    Writes the episodes metadata into output file. Takes two inputs - 
+    1. output_file - must be of string type, should be of type `.csv`
+    2. episodes_data - the output from `get_episode_metadata` function
+    '''
     if len(output_file) < 4 or '.csv' not in output_file:
         raise ValueError('Provide a valid output_file of .csv type.')
     if len(episodes_data) == 0:
         raise ValueError('Provide a episodes_data data to write to the output file!')
-    df = pd.DataFrame(episodes_data)
-    df.head()
-    df.to_csv(output_file, index=False)
+    dataframe = pd.DataFrame(episodes_data)
+    dataframe.head()
+    dataframe.to_csv(output_file, index=False)
 
 IMDB_GOT_ID = '0944947'
 IMDB_EPISODE_IDS = {
-    1: ["1480055", "1668746", "1829962", "1829963", "1829964", "1837862", "1837863", "1837864", "1851398", "1851397"],
-    2: ["1971833", "2069318", "2070135", "2069319", "2074658", "2085238", "2085239", "2085240", "2084342", "2112510"],
-    3: ["2178782", "2178772", "2178802", "2178798", "2178788", "2178812", "2178814", "2178806", "2178784", "2178796"],
-    4: ["2816136", "2832378", "2972426", "2972428", "3060856", "3060910", "3060876", "3060782", "3060858", "3060860"],
-    5: ["3658012", "3846626", "3866836", "3866838", "3866840", "3866842", "3866846", "3866850", "3866826", "3866862"],
-    6: ["3658014", "4077554", "4131606", "4283016", "4283028", "4283054", "4283060", "4283074", "4283088", "4283094"],
+    1: ["1480055", "1668746", "1829962", "1829963", "1829964", "1837862", "1837863",
+        "1837864", "1851398", "1851397"],
+    2: ["1971833", "2069318", "2070135", "2069319", "2074658", "2085238", "2085239",
+        "2085240", "2084342", "2112510"],
+    3: ["2178782", "2178772", "2178802", "2178798", "2178788", "2178812", "2178814",
+        "2178806", "2178784", "2178796"],
+    4: ["2816136", "2832378", "2972426", "2972428", "3060856", "3060910", "3060876",
+        "3060782", "3060858", "3060860"],
+    5: ["3658012", "3846626", "3866836", "3866838", "3866840", "3866842", "3866846",
+        "3866850", "3866826", "3866862"],
+    6: ["3658014", "4077554", "4131606", "4283016", "4283028", "4283054", "4283060",
+        "4283074", "4283088", "4283094"],
     7: ["5654088", "5655178", "5775840", "5775846", "5775854", "5775864", "5775874"],
     8: ["5924366", "6027908", "6027912", "6027914", "6027916", "6027920"],
 }
 
 data = get_show_metadata(IMDB_GOT_ID)
 write_show_metadata('../data/show_metadata.json', data)
-episodes = get_episode_metadata()
-write_episode_metadata('../data/episodes_metadata.csv', episodes)
+episodes_metadata = get_episode_metadata()
+write_episode_metadata('../data/episodes_metadata.csv', episodes_metadata)
