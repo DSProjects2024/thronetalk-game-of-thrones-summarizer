@@ -130,7 +130,7 @@ class visualizationGenerator:
             lemmatiser = WordNetLemmatizer()
             lem_words = [lemmatiser.lemmatize(w, pos='v') for w in words]
             words_counter = Counter(lem_words)
-            wordcloud = WordCloud(stopwords=stopwords, width = 3000, height = 2000,max_words=20)
+            wordcloud = WordCloud(stopwords=stopwords)
             wordcloud.generate_from_frequencies(words_counter)
             
             plt.imshow(wordcloud, interpolation='bilinear')
