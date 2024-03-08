@@ -3,3 +3,4 @@ __pycache__
 personal
 .ipynb*
 data/test
+.streamlit
