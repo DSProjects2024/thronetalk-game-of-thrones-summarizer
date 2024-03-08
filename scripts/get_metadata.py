@@ -71,7 +71,6 @@ def write_show_metadata(output_file, dict_data):
         raise TypeError("output_file must be of type str.")
     if len(output_file) < 5 or '.json' not in output_file:
         raise ValueError('Provide a valid output_file of .json type.')
-    
     if not dict_data:
         raise ValueError("Provide dict_data parameter!")
     if len(dict_data.keys()) == 0:
@@ -79,8 +78,7 @@ def write_show_metadata(output_file, dict_data):
     with open(output_file, 'w', encoding="utf-8") as (outfile, error):
         if error:
             raise IOError(error)
-        else:
-            json.dump(dict_data, outfile, sort_keys=True, indent=2)
+        json.dump(dict_data, outfile, sort_keys=True, indent=2)
 
 def _format_episode_metadata(episode_metadata):
     '''
@@ -149,7 +147,6 @@ def write_episode_metadata(output_file, episodes_data):
         raise TypeError("output_file must be of type str.")
     if len(output_file) < 4 or '.csv' not in output_file:
         raise ValueError('Provide a valid output_file of .csv type.')
-    
     if not episodes_data:
         raise ValueError("Provide episodes_data parameter!")
     if len(episodes_data.keys()) == 0:
