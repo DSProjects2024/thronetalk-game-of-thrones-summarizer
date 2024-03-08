@@ -58,7 +58,7 @@ class VisualizationGenerator:
                  season_to: int, episode_to: int) -> None:
         params = [season_from, episode_from, season_to, episode_to]
         # Python raises `TypeError` automatically if we don't provide the kwargs
-        if any([not isinstance(param, int) for param in params]):
+        if any(not isinstance(param, int) for param in params):
             raise ValueError('''season_from, episode_from, season_to
                              and episode_to must be integers!''')
         if season_from < 1:
@@ -74,8 +74,7 @@ class VisualizationGenerator:
         self.episode_to = int(episode_to)
         self.season_from = int(season_from)
         self.season_to = int(season_to)
-        self.df = pd.read_csv("data/ouput_dialogues.csv")
-
+        self.data = pd.read_csv("data/ouput_dialogues.csv")
 
     def pre_process_data_for_character(self, character: str) -> str:
         """
@@ -87,8 +86,8 @@ class VisualizationGenerator:
         Returns:
             str: Concatenated dialogue string for the character
         """
-        df = self.df
-        character_mask = df[df['Character'].str.upper() == character.upper()]
+        data = self.data
+        character_mask = data[data['Character'].str.upper() == character.upper()]
         dialogue_string = ''
         for i in range(self.season_from, self.season_to + 1):
             season_mask_df = character_mask[character_mask['Season'] == "season-0" + str(i)]
@@ -118,9 +117,9 @@ class VisualizationGenerator:
         Returns:
             list[str]: List of dialogue strings for the character, one per episode
         """
-        df = self.df
+        data = self.data
         char_episode_wise_arr = []
-        character_mask = df[df['Character'].str.upper() == character.upper()]
+        character_mask = data[data['Character'].str.upper() == character.upper()]
 
         for i in range(self.season_from, self.season_to + 1):
             season_mask_df = character_mask[character_mask['Season'] == "season-0" + str(i)]
@@ -145,6 +144,7 @@ class VisualizationGenerator:
                     char_episode_wise_arr.append(dialogue_string)
 
         return char_episode_wise_arr
+
     def multi_word_cloud(self, char_arr: list[str]) -> list:
         """
         Generates a list of WordCloud objects for multiple characters.
@@ -182,7 +182,6 @@ class VisualizationGenerator:
             plot_obj_arr.append(wordcloud)
         return plot_obj_arr
 
-
     def preprocess_text_sentiment(self, text: str) -> str:
         """
         Preprocesses text for sentiment analysis.
@@ -201,7 +200,6 @@ class VisualizationGenerator:
         lemmatizer = WordNetLemmatizer()
         processed_text = ' '.join([lemmatizer.lemmatize(each) for each in filtered_tokens])
         return processed_text
-
 
     def get_sentiment(self, char_arr: list[str]) -> list[list[float]]:
         """
@@ -226,7 +224,6 @@ class VisualizationGenerator:
 
         return sentiment_scores_per_character
 
-
     def sentiment_analysis_visualization(self, char_arr: list[str]) -> pd.DataFrame:
         """
         Generates sentiment scores for characters and creates a DataFrame for visualization.
@@ -241,14 +238,13 @@ class VisualizationGenerator:
             raise TypeError("char_arr should be a list!")
         if len(char_arr) < 1:
             raise ValueError("Provide at least 1 character names.")
-        if any([not isinstance(name, str) for name in char_arr]):
+        if any(not isinstance(name, str) for name in char_arr):
             raise ValueError("Names in char_arr should be string!")
-        if any([len(name) < 1 for name in char_arr]):
+        if any(len(name) < 1 for name in char_arr):
             raise ValueError("Names cannot be empty!")
         sentiment_arr = self.get_sentiment(char_arr)
         chart_data = pd.DataFrame(np.asarray(sentiment_arr).transpose())
         return chart_data
-
 
 if __name__ == '__main__':
     vg = VisualizationGenerator(1,1,1,3)

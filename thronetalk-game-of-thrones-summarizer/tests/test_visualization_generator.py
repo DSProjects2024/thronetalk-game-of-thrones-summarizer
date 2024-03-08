@@ -3,7 +3,7 @@ Module that tests `scripts/visualization_generator.py`. Makes use of `unittest` 
 Consists of smoke tests, one-shot test and edge tests.
 '''
 import unittest
-from unittest.mock import patch
+# from unittest.mock import patch
 from utils import VisualizationGenerator
 # from . import mock_functions
 
@@ -12,8 +12,9 @@ class TestVisualizationGenerator(unittest.TestCase):
 
     # Edge tests
     def test_init_error(self):
+        '''Edge tests for VisualizationGenerator'''
         with self.assertRaises(TypeError):
-            VisualizationGenerator()
+            VisualizationGenerator() # pylint: disable=no-value-for-parameter
         with self.assertRaises(ValueError):
             VisualizationGenerator("","","","")
         with self.assertRaises(ValueError):
@@ -29,26 +30,27 @@ class TestVisualizationGenerator(unittest.TestCase):
         # recommender = Recommender(meta=imdb, scripts=script)
         # self.assertEqual(recommender.weights, [1, 1, 0.8, 0.5, 0.2, 0.2, 0.4])
         # self.assertIsNotNone(recommender.vector_list)
-    
     # @patch('scripts.visualization_generator.pd.read_csv',
     #        side_effect=mock_functions.mocked_read_csv_ouput_dialogues)
     def test_wordcloud_error(self):
-        vg = VisualizationGenerator(1,1,1,2)
+        '''Edge tests for wordcloud generation function'''
+        v_g = VisualizationGenerator(1,1,1,2)
         with self.assertRaises(TypeError):
-            vg.multiWordCloud()
+            v_g.multi_word_cloud() # pylint: disable=no-value-for-parameter
         with self.assertRaises(ValueError):
-            vg.multiWordCloud([])
+            v_g.multi_word_cloud([])
         with self.assertRaises(ValueError):
-            vg.multiWordCloud(['', ''])
+            v_g.multi_word_cloud(['', ''])
 
-    def test_sentimentAnalysisVisualization_error(self):
-        vg = VisualizationGenerator(1,1,1,2)
+    def test_sentiment_analysis_visualization_error(self):
+        '''Edge tests for sentiment analysis viz generation function'''
+        v_g = VisualizationGenerator(1,1,1,2)
         with self.assertRaises(TypeError):
-            vg.sentimentAnalysisVisualization()
+            v_g.sentiment_analysis_visualization() # pylint: disable=no-value-for-parameter
         with self.assertRaises(ValueError):
-            vg.sentimentAnalysisVisualization([])
+            v_g.sentiment_analysis_visualization([])
         with self.assertRaises(ValueError):
-            vg.sentimentAnalysisVisualization(['', ''])
+            v_g.sentiment_analysis_visualization(['', ''])
 
     # Smoke tests
     # @patch('scripts.visualization_generator.pd.read_csv',
@@ -56,8 +58,8 @@ class TestVisualizationGenerator(unittest.TestCase):
     # def test_smoke_test(self):
     #     top_3_characters = ["eddard","catelyn","robert"]
     #     vg = VisualizationGenerator(1,1,1,3)
-    #     vg.multiWordCloud(top_3_characters)
-    #     vg.sentimentAnalysisVisualization(top_3_characters)
+    #     vg.multi_word_cloud(top_3_characters)
+    #     vg.sentiment_analysis_visualization(top_3_characters)
 
 if __name__ == "__main__":
     unittest.main()
