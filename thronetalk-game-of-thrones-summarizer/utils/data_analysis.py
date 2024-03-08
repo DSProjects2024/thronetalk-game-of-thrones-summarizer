@@ -109,26 +109,25 @@ class DataAnalysis:
         for i in range(from_season,to_season+1):
             season_data = self.data.loc[(self.data['Season_Number'] >= from_season) &
                                         (self.data['Season_Number'] <= to_season)]
+
             for j in range(1, 11):
-                if(i == from_season and j >= from_episode):
-                    filtered_data = season_data[season_data['Episode_Number'] == j]
-                elif(i  == to_season and j <= to_episode):
-                    filtered_data = season_data[season_data['Episode_Number'] == j]
-                elif(i < to_season and i > from_season):
+                # Check if current season and episode are within the specified range
+                if ((i == from_season and j >= from_episode) or
+                    (i == to_season and j <= to_episode) or
+                    (from_season < i < to_season)):
                     filtered_data = season_data[season_data['Episode_Number'] == j]
 
         return filtered_data
 
-    def get_top_n_characters(self, n_char, from_season,
+    def get_top_n_characters(self, from_season,
                              to_season=None, from_episode=None,
                              to_episode=None):
         """
-        Retrieves the names and dialogue counts of the top `n_char` characters based
+        Retrieves the names and dialogue counts of the top 15 characters based
         on their dialogue frequency within a specified range of seasons and episodes.
         Optionally excludes the narrator from the analysis.
 
         Parameters:
-            n_char (int): The number of top characters to retrieve.
             from_season (int): The starting season number.
             to_season (int, optional): The ending season number. If not provided,
                                        analysis is limited to `from_season`.
@@ -141,7 +140,7 @@ class DataAnalysis:
 
         Returns:
             tuple: A tuple containing two lists:
-                   - The first list contains the names of the top `n_char` characters.
+                   - The first list contains the names of the top 15 characters.
                    - The second list contains the dialogue counts of these characters.
         """
 
@@ -157,7 +156,7 @@ class DataAnalysis:
         dialogue_count = filtered_data['Character'].str.upper().value_counts()
 
         # Get the top characters
-        top_characters_names = dialogue_count.head(n_char).index.tolist()
-        top_characters_dialogues = dialogue_count.head(n_char).tolist()
+        top_characters_names = dialogue_count.head(15).index.tolist()
+        top_characters_dialogues = dialogue_count.head(15).tolist()
 
         return top_characters_names, top_characters_dialogues
