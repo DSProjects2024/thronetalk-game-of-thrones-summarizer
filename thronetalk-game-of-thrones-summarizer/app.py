@@ -6,7 +6,7 @@ import os
 import time
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-from utils.model import model
+from utils.model import Model
 from utils.visualization_generator import VisualizationGenerator
 from utils.data_analysis import DataAnalysis
 
@@ -17,7 +17,7 @@ current_directory = os.path.dirname(__file__)
 csv_file_path = os.path.join(current_directory, 'data', 'Season_Episode_MultiEpisode.csv')
 
 #st.image("back.jpg", use_column_width=True)
-
+st. set_page_config(layout="wide") 
 def get_base64(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
@@ -93,13 +93,12 @@ if submitted:
     cleaned_data = pd.read_csv(f'{current_directory}/data/ouput_dialogues.csv')
     data_analysis = DataAnalysis(cleaned_data)
     top_3_characters, top_3_characters_dialogues = data_analysis.get_top_n_characters(
-        n_char=3,
         from_season=int(season_from),
         to_season=int(season_to),
         from_episode=int(from_ep_no),
         to_episode=int(to_ep_no)
     )
-    characters = top_3_characters
+    characters = top_3_characters[:3] #for first 3
     st.subheader(out_text_temp2)
 
     vg = VisualizationGenerator(
@@ -108,10 +107,10 @@ if submitted:
         int(season_to),
         int(to_ep_no)
     )
-    line_chart = vg.sentimentAnalysisVisualization(characters)
+    line_chart = vg.sentiment_analysis_visualization(characters)
     st.line_chart(line_chart)
     columns = st.columns(len(characters))
-    wordcloud = vg.multiWordCloud(characters)
+    wordcloud = vg.multi_word_cloud(characters)
 
     # Display word cloud on Streamlit UI
     plots = []
@@ -127,7 +126,7 @@ if submitted:
             st.pyplot(plots[i])
 
     def spinner_loading_summary():
-        got = model(season_from,from_ep_no, season_to, to_ep_no)
+        got = Model(season_from,from_ep_no, season_to, to_ep_no)
         time.sleep(1)
         return got.summarize()
 

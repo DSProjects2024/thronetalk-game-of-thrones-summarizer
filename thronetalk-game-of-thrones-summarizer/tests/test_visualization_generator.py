@@ -36,21 +36,21 @@ class TestVisualizationGenerator(unittest.TestCase):
         '''Edge tests for wordcloud generation function'''
         v_g = VisualizationGenerator(1,1,1,2)
         with self.assertRaises(TypeError):
-            v_g.multiWordCloud() # pylint: disable=no-value-for-parameter
+            v_g.multi_word_cloud() # pylint: disable=no-value-for-parameter
         with self.assertRaises(ValueError):
-            v_g.multiWordCloud([])
+            v_g.multi_word_cloud([])
         with self.assertRaises(ValueError):
-            v_g.multiWordCloud(['', ''])
+            v_g.multi_word_cloud(['', ''])
 
     def test_sentiment_analysis_visualization_error(self):
         '''Edge tests for sentiment analysis viz generation function'''
         v_g = VisualizationGenerator(1,1,1,2)
         with self.assertRaises(TypeError):
-            v_g.sentimentAnalysisVisualization() # pylint: disable=no-value-for-parameter
+            v_g.sentiment_analysis_visualization() # pylint: disable=no-value-for-parameter
         with self.assertRaises(ValueError):
-            v_g.sentimentAnalysisVisualization([])
+            v_g.sentiment_analysis_visualization([])
         with self.assertRaises(ValueError):
-            v_g.sentimentAnalysisVisualization(['', ''])
+            v_g.sentiment_analysis_visualization(['', ''])
 
     # Smoke tests
     # @patch('scripts.visualization_generator.pd.read_csv',
@@ -58,8 +58,8 @@ class TestVisualizationGenerator(unittest.TestCase):
     # def test_smoke_test(self):
     #     top_3_characters = ["eddard","catelyn","robert"]
     #     vg = VisualizationGenerator(1,1,1,3)
-    #     vg.multiWordCloud(top_3_characters)
-    #     vg.sentimentAnalysisVisualization(top_3_characters)
+    #     vg.multi_word_cloud(top_3_characters)
+    #     vg.sentiment_analysis_visualization(top_3_characters)
 
 if __name__ == "__main__":
     unittest.main()
