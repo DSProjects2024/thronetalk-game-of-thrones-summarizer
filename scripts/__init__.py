@@ -1,3 +1,6 @@
+'''
+init file for scripts
+'''
 from .get_metadata import (get_show_metadata,
                            write_show_metadata,
                            _format_episode_metadata,
