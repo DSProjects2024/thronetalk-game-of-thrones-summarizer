@@ -143,7 +143,7 @@ class VisualizationGenerator:
             print(words)
             tfidf = TfidfVectorizer().fit(words)
             lemmatiser = WordNetLemmatizer()
-            lem_words = [lemmatiser.lemmatize(w, pos='v') for w in tfidf.get_feature_names()]
+            lem_words = [lemmatiser.lemmatize(w, pos='v') for w in tfidf.get_feature_names_out()]
             words_counter = Counter(lem_words)
             wordcloud = WordCloud(stopwords=stopwords)
             wordcloud.generate_from_frequencies(words_counter)
