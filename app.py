@@ -97,9 +97,7 @@ if submitted:
         from_season=int(season_from), 
         to_season=int(season_to), 
         from_episode=int(from_ep_no),
-        to_episode=int(to_ep_no),
-        season_col='Season_Number', 
-        episode_col='Episode_Number'
+        to_episode=int(to_ep_no)
     )
     characters = top_3_characters
     st.subheader(out_text_temp2)

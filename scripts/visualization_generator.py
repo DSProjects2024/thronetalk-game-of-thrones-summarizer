@@ -11,6 +11,7 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from collections import Counter
 import re
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -24,14 +25,14 @@ class visualizationGenerator:
         self.episodeTo = int(episodeTo)
         self.seasonFrom = int(seasonFrom)
         self.seasonTo = int(seasonTo)
-        self.df = pd.read_csv("../data/ouput_dialogues.csv")
+        self.df = pd.read_csv("data/ouput_dialogues.csv")
     
     def preProcessDataForCharacter(self, character):
         #s2 e3
         df = self.df
         episodeArr = []
         seasonArr = []
-        characterMask = df[df['Speaker'].str.upper() == character.upper()]
+        characterMask = df[df['Character'].str.upper() == character.upper()]
         print(characterMask)
         episodeArr = []
         seasonArr = []
@@ -58,13 +59,12 @@ class visualizationGenerator:
                     for dialogue in episodeMaskDF.values:
                         dialogueString = dialogueString + dialogue[1]
                     #print("season: "+str(i)+" episode: "+str(j))
-
         return(dialogueString)
-    
+   
     def preProcessDataForCharacterPerEpisode(self, character):
         df = self.df
         charEpisodeWiseArr = []
-        characterMask = df[df['Speaker'].str.upper() == character.upper()]
+        characterMask = df[df['Character'].str.upper() == character.upper()]
         #print(characterMask.head(10))
         episodeArr = []
         seasonArr = []
@@ -94,7 +94,6 @@ class visualizationGenerator:
                         dialogueString = dialogueString + dialogue[1]
                     charEpisodeWiseArr.append(dialogueString)
                     #print("season: "+str(i)+" episode: "+str(j))
-                
         return charEpisodeWiseArr
 
     
@@ -103,7 +102,6 @@ class visualizationGenerator:
         df = self.df
         episodeArr = []
         seasonArr = []
-
         for i in range(self.episodeFrom, self.episodeTo+1):
             episodeArr.append('e'+str(i))
         for i in range(self.seasonFrom,self.seasonTo+1):
@@ -118,25 +116,27 @@ class visualizationGenerator:
         return(dialogueString)
     
     def multiWordCloud(self, charArr):
+        print(charArr)
         plot_obj_arr = []
         for char in charArr:
             stopwords = set(STOPWORDS)
             wordCloudStr = self.preProcessDataForCharacter(char)
+            print(wordCloudStr)
             words = wordCloudStr.lower().split()
             words = [re.sub("[.,!?:;-='...'@#_]", " ", s) for s in words]
             words = [re.sub(r'\d+', '', w) for w in words]
             words = [word.strip() for word in words if word not in stopwords]
-            words.remove('')
+            #words.remove('')
+            tfidf = TfidfVectorizer().fit(words)
             lemmatiser = WordNetLemmatizer()
-            lem_words = [lemmatiser.lemmatize(w, pos='v') for w in words]
+            lem_words = [lemmatiser.lemmatize(w, pos='v') for w in tfidf.get_feature_names()]
             words_counter = Counter(lem_words)
             wordcloud = WordCloud(stopwords=stopwords)
             wordcloud.generate_from_frequencies(words_counter)
-            
-            plt.imshow(wordcloud, interpolation='bilinear')
-            plt.axis("off")
-            plt.show()
-            st.pyplot()
+            # plt.imshow(wordcloud, interpolation='bilinear')
+            # plt.axis("off")
+            # plt.show()
+            # st.pyplot()
             plot_obj_arr.append(wordcloud)
         return plot_obj_arr
     
@@ -161,6 +161,8 @@ class visualizationGenerator:
     
     def get_sentiment(self, charArr):
         totArr = []
+        episode_num = []
+        season_num = []
         for char in charArr:
             sentimentArr = []
             sentimentArrperCharperEpisode = self.preProcessDataForCharacterPerEpisode(char)
@@ -187,6 +189,7 @@ class visualizationGenerator:
 
     def sentimentAnalysisVisualization(self, charArr):
         sentimentArr = self.get_sentiment(charArr)
+        print("sdsadasd: "+str(sentimentArr))
         chart_data = pd.DataFrame(np.asarray(sentimentArr).transpose())
         #print(np.asarray(sentimentArr).transpose())
         #print(sentimentArr)
