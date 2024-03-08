@@ -85,10 +85,10 @@ jobs:
       # run successfully, you can add those steps here!
 
       # Next step: run pylint. Anything less than 10/10 will fail.
-      # - name: Lint with pylint
-      #   run: |
-      #     python -m pip install pylint
-      #     pylint thronetalk-game-of-thrones-summarizer/**/*.py
+      - name: Lint with pylint
+        run: |
+          python -m pip install pylint
+          pylint thronetalk-game-of-thrones-summarizer/**/*.py
 
       # Next step: run the unit tests with code coverage.
       - name: Unit tests
