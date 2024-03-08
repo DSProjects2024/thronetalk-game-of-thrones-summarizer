@@ -2,11 +2,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
-from wordcloud import WordCloud
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from nltk.corpus import stopwords
-from wordcloud import STOPWORDS
+from wordcloud import WordCloud, STOPWORDS
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from collections import Counter
@@ -19,8 +18,21 @@ nltk.download('vader_lexicon')
 nltk.download('stopwords')
 nltk.download('omw-1.4')
 
-class visualizationGenerator:
-    def __init__(self, seasonFrom=1, episodeFrom=1  , seasonTo=1, episodeTo=1):
+class VisualizationGenerator:
+    def __init__(self, seasonFrom, episodeFrom, seasonTo, episodeTo):
+        params = [seasonFrom, episodeFrom, seasonTo, episodeTo]
+        # Python raises `TypeError` automatically if we don't provide the kwargs
+        if any([not isinstance(param, int) for param in params]):
+            raise ValueError("seasonFrom, episodeFrom, seasonTo and episodeTo must be integers!")
+        if seasonFrom < 1:
+            raise ValueError("seasonFrom can't be less than 1!")
+        if 1 < episodeFrom < 10 or 1 < episodeFrom < 10:
+            raise ValueError("episodeFrom and episodeTo values should be within 1 to 10!")
+        if seasonTo > 8:
+            raise ValueError("seasonFrom can't be greater than 8!")
+        if (seasonFrom*10 + episodeFrom) >= (seasonTo*10 + episodeTo):
+            raise ValueError("From value can't be greater than or equal to To value!")
+
         self.episodeFrom = int(episodeFrom)
         self.episodeTo = int(episodeTo)
         self.seasonFrom = int(seasonFrom)
@@ -30,11 +42,7 @@ class visualizationGenerator:
     def preProcessDataForCharacter(self, character):
         #s2 e3
         df = self.df
-        episodeArr = []
-        seasonArr = []
-        characterMask = df[df['Character'].str.upper() == character.upper()]
-        episodeArr = []
-        seasonArr = []
+        characterMask = df[df['Speaker'].str.upper() == character.upper()]
         dialogueString = ''
         for i in range(self.seasonFrom,self.seasonTo+1):
             seasonMaskDF = characterMask[characterMask['Season'] == "season-0"+str(i)]
@@ -65,8 +73,6 @@ class visualizationGenerator:
         charEpisodeWiseArr = []
         characterMask = df[df['Character'].str.upper() == character.upper()]
         #print(characterMask.head(10))
-        episodeArr = []
-        seasonArr = []
         #s3 epi 6 to s5 epi 2
         for i in range(self.seasonFrom,self.seasonTo+1):
             seasonMaskDF = characterMask[characterMask['Season'] == "season-0"+str(i)]
@@ -94,8 +100,6 @@ class visualizationGenerator:
                     charEpisodeWiseArr.append(dialogueString)
                     #print("season: "+str(i)+" episode: "+str(j))
         return charEpisodeWiseArr
-
-    
     
     def preProcessData(self):
         df = self.df
@@ -115,7 +119,15 @@ class visualizationGenerator:
         return(dialogueString)
     
     def multiWordCloud(self, charArr):
-        print(charArr)
+        if not isinstance(charArr, list):
+            raise TypeError("charArr should be a list!")
+        if len(charArr) < 1:
+            raise ValueError("Provide at least 1 character names.")
+        if any([not isinstance(name, str) for name in charArr]):
+            raise ValueError("Names in charArr should be string!")
+        if any([len(name) < 1 for name in charArr]):
+            raise ValueError("Names cannot be empty!")
+        
         plot_obj_arr = []
         for char in charArr:
             stopwords = set(STOPWORDS)
@@ -185,6 +197,14 @@ class visualizationGenerator:
     
 
     def sentimentAnalysisVisualization(self, charArr):
+        if not isinstance(charArr, list):
+            raise TypeError("charArr should be a list!")
+        if len(charArr) < 1:
+            raise ValueError("Provide at least 1 character names.")
+        if any([not isinstance(name, str) for name in charArr]):
+            raise ValueError("Names in charArr should be string!")
+        if any([len(name) < 1 for name in charArr]):
+            raise ValueError("Names cannot be empty!")
         sentimentArr = self.get_sentiment(charArr)
         #print("sdsadasd: "+str(sentimentArr))
         chart_data = pd.DataFrame(np.asarray(sentimentArr).transpose())
@@ -198,7 +218,7 @@ class visualizationGenerator:
         return chart_data
     
 if __name__ == '__main__':
-    vg = visualizationGenerator(1,1,1,3)
+    vg = VisualizationGenerator(1,1,1,3)
     vg.multiWordCloud([
   "narrator",
   "eddard",
