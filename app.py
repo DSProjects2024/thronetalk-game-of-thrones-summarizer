@@ -7,7 +7,7 @@ import time
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 from scripts.model import model
-from scripts.visualization_generator import visualizationGenerator
+from scripts.visualization_generator import VisualizationGenerator
 from scripts.data_analysis import DataAnalysis
 
 # Get the current directory of the script
@@ -102,7 +102,7 @@ if submitted:
     characters = top_3_characters
     st.subheader(out_text_temp2)
 
-    vg = visualizationGenerator(season_from, from_ep_no, season_to, to_ep_no)
+    vg = VisualizationGenerator(season_from, from_ep_no, season_to, to_ep_no)
     line_chart = vg.sentimentAnalysisVisualization(characters)
 
     st.line_chart(line_chart)
