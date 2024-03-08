@@ -23,19 +23,15 @@
 #     # def test_get_show_metadata_smoke(self):
 #     #     '''Smoke test to make sure the function runs properly.'''
 #     #     get_show_metadata("0944947")
-
 #     # def test_write_show_metadata_smoke(self):
 #     #     '''Smoke test to make sure the function runs properly.'''
 #     #     write_show_metadata(self.mock_path, self.mock_data)
-    
 #     # def test__format_episode_metadata_smoke(self):
 #     #     '''Smoke test to make sure the function runs properly.'''
 #     #     _format_episode_metadata(self.mock_data)
-    
 #     # def test_get_episode_metadata_smoke(self):
 #     #     '''Smoke test to make sure the function runs properly.'''
 #     #     get_episode_metadata()
-
 #     # def test_write_episode_metadata_smoke(self):
 #     #     '''Smoke test to make sure the function runs properly.'''
 #     #     write_episode_metadata(self.mock_path, self.mock_data)
@@ -73,7 +69,6 @@
 #         #     _format_episode_metadata()
 #         with self.assertRaises(ValueError):
 #             _format_episode_metadata({})
-    
 #     # def test_edge_invalid_write_episode_metadata(self):
 #     #     '''Edge test for write_episode_metadata function.'''
 #     #     # Check values of first parameter

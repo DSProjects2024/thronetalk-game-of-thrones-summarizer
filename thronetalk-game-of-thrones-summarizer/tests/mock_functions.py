@@ -1,7 +1,9 @@
-from io import StringIO
+'''
+Mock functions for testing purposes.
+'''
 import pandas as pd
 
-def mocked_read_csv_ouput_dialogues(*args):
+def mocked_read_csv_ouput_dialogues():
     """
         Mocking pandas' read_csv function for output_dialogues.
     """
@@ -51,6 +53,6 @@ def mocked_read_csv_ouput_dialogues(*args):
     '''
     lines = data_output_dialogues_raw.splitlines()
     data = [line.split(',') for line in lines[1:]]
-    df = pd.DataFrame(data[1:], columns=data[0])
+    dataframe = pd.DataFrame(data[1:], columns=data[0])
     # mock_output_dialogues_raw = pd.read_csv(StringIO(data_output_dialogues_raw))
-    return df
+    return dataframe
