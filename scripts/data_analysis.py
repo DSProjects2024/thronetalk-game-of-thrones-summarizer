@@ -84,6 +84,41 @@ class DataAnalysis:
         characters = episode_data['Character'].str.lower().unique().tolist()
         return characters
 
+    def get_filtered_df(self, from_season,
+                        to_season, from_episode,
+                        to_episode):
+        """
+        Filters the dialogue data DataFrame based on season and episode ranges.
+
+        This method filters the `data` DataFrame to include only the rows that fall within
+        the specified ranges of seasons and episodes. It iterates through each season and episode,
+        applying the specified filters to select the relevant data.
+
+        Parameters:
+            from_season (int): The starting season number for filtering.
+            to_season (int): The ending season number for filtering.
+            from_episode (int): The starting episode number for
+            filtering within the starting season.
+            to_episode (int): The ending episode number for
+            filtering within the ending season.
+
+        Returns:
+            pd.DataFrame: A filtered DataFrame containing only the rows that match the specified
+                        season and episode range criteria.
+        """
+        for i in range(from_season,to_season+1):
+            season_data = self.data.loc[(self.data['Season_Number'] >= from_season) &
+                                        (self.data['Season_Number'] <= to_season)]
+            for j in range(1, 11):
+                if(i == from_season and j >= from_episode):
+                    filtered_data = season_data[season_data['Episode_Number'] == j]
+                elif(i  == to_season and j <= to_episode):
+                    filtered_data = season_data[season_data['Episode_Number'] == j]
+                elif(i < to_season and i > from_season):
+                    filtered_data = season_data[season_data['Episode_Number'] == j]
+
+        return filtered_data
+
     def get_top_n_characters(self, n_char, from_season,
                              to_season=None, from_episode=None,
                              to_episode=None):
@@ -111,10 +146,9 @@ class DataAnalysis:
         """
 
         # Filter the data for the specified season and episode range
-        season_data = self.data[(self.data['Season_Number'] >= from_season) &
-                                (self.data['Season_Number'] <= to_season)]
-        filtered_data = season_data[(season_data['Episode_Number'] >= from_episode) &
-                                    (season_data['Episode_Number'] <= to_episode)]
+        filtered_data = self.get_filtered_df(from_season,
+                             to_season, from_episode,
+                             to_episode)
 
         # Exclude the narrator from the analysis
         filtered_data = filtered_data[filtered_data['Character'].str.upper() != 'NARRATOR']
