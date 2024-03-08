@@ -1,3 +1,4 @@
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -41,7 +42,6 @@ class VisualizationGenerator:
     
     def preProcessDataForCharacter(self, character):
         #s2 e3
-        print("chars: ")
         df = self.df
         characterMask = df[df['Character'].str.upper() == character.upper()]
         dialogueString = ''
@@ -67,7 +67,6 @@ class VisualizationGenerator:
                     for dialogue in episodeMaskDF.values:
                         dialogueString = dialogueString + dialogue[1]
                     #print("season: "+str(i)+" episode: "+str(j))
-        print("sdsfsd: ",str(dialogueString))
         return(dialogueString)
    
     def preProcessDataForCharacterPerEpisode(self, character):
@@ -134,13 +133,11 @@ class VisualizationGenerator:
         for char in charArr:
             stopwords = set(STOPWORDS)
             wordCloudStr = self.preProcessDataForCharacter(char)
-            print(wordCloudStr)
             words = wordCloudStr.lower().split()
             words = [re.sub("[.,!?:;-='...'@#_]", " ", s) for s in words]
             words = [re.sub(r'\d+', '', w) for w in words]
             words = [word.strip() for word in words if word not in stopwords]
             #words.remove('')
-            print(words)
             tfidf = TfidfVectorizer().fit(words)
             lemmatiser = WordNetLemmatizer()
             lem_words = [lemmatiser.lemmatize(w, pos='v') for w in tfidf.get_feature_names_out()]

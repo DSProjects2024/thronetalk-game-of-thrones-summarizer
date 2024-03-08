@@ -6,9 +6,9 @@ import os
 import time
 import matplotlib.pyplot as plt
 from wordcloud import WordCloud
-from scripts.model import model
-from scripts.visualization_generator import VisualizationGenerator
-from scripts.data_analysis import DataAnalysis
+from utils.model import model
+from utils.visualization_generator import VisualizationGenerator
+from utils.data_analysis import DataAnalysis
 
 # Get the current directory of the script
 current_directory = os.path.dirname(__file__)
@@ -90,7 +90,7 @@ out_text_temp2 = f"**Sentiment Analysis and Word Clouds from {selected_episode_f
 
 
 if submitted:
-    cleaned_data = pd.read_csv('data/ouput_dialogues.csv')
+    cleaned_data = pd.read_csv(f'{current_directory}/data/ouput_dialogues.csv')
     data_analysis = DataAnalysis(cleaned_data)
     top_3_characters, top_3_characters_dialogues = data_analysis.get_top_n_characters(
         n_char=3,
@@ -106,7 +106,8 @@ if submitted:
         int(season_from),
         int(from_ep_no),
         int(season_to),
-        int(to_ep_no))
+        int(to_ep_no)
+    )
     line_chart = vg.sentimentAnalysisVisualization(characters)
     st.line_chart(line_chart)
     columns = st.columns(len(characters))
