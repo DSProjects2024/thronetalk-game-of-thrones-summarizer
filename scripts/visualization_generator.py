@@ -33,7 +33,6 @@ class visualizationGenerator:
         episodeArr = []
         seasonArr = []
         characterMask = df[df['Character'].str.upper() == character.upper()]
-        print(characterMask)
         episodeArr = []
         seasonArr = []
         dialogueString = ''
@@ -166,13 +165,11 @@ class visualizationGenerator:
         for char in charArr:
             sentimentArr = []
             sentimentArrperCharperEpisode = self.preProcessDataForCharacterPerEpisode(char)
-            # print("length is: "+str(len(sentimentArrperCharperEpisode)))
             for episode in sentimentArrperCharperEpisode:
                 processed_text = self.preprocess_text_sentiment(episode)
                 analyzer = SentimentIntensityAnalyzer()
                 scores = analyzer.polarity_scores(processed_text)
                 #sentiment = 1 if scores['compound'] > 0 else 0
-                #print(scores)
                 sentimentArr.append(scores['compound'])
             totArr.append(sentimentArr)
         return totArr
@@ -189,7 +186,7 @@ class visualizationGenerator:
 
     def sentimentAnalysisVisualization(self, charArr):
         sentimentArr = self.get_sentiment(charArr)
-        print("sdsadasd: "+str(sentimentArr))
+        #print("sdsadasd: "+str(sentimentArr))
         chart_data = pd.DataFrame(np.asarray(sentimentArr).transpose())
         #print(np.asarray(sentimentArr).transpose())
         #print(sentimentArr)
