@@ -16,7 +16,7 @@ Classes:
 Usage Example:
     >>> cleaned_data = pd.read_csv('data/output_dialogues.csv')
     >>> data_analysis = DataAnalysis(cleaned_data)
-    >>> top_n_characters, top_n_characters_dialogues = data_analysis.get_top_n_characters(n_char=10,
+    >>> top_n_characters, top_n_characters_dialogues = data_analysis.get_top_n_characters(
     from_season=1, to_season=1, from_episode=1, to_episode=5)
     >>> print(top_n_characters)
 
@@ -29,6 +29,7 @@ Note:
     with regard to the range of content being analyzed.
 """
 
+import pandas as pd
 
 class DataAnalysis:
     """
@@ -106,57 +107,115 @@ class DataAnalysis:
             pd.DataFrame: A filtered DataFrame containing only the rows that match the specified
                         season and episode range criteria.
         """
-        for i in range(from_season,to_season+1):
-            season_data = self.data.loc[(self.data['Season_Number'] >= from_season) &
-                                        (self.data['Season_Number'] <= to_season)]
+        filtered_data = pd.DataFrame()
+        start_season_data = self.data.loc[((self.data['Season_Number'] == from_season) &
+                                        (self.data['Episode_Number'] >= from_episode))]
 
-            for j in range(1, 11):
-                # Check if current season and episode are within the specified range
-                if ((i == from_season and j >= from_episode) or
-                    (i == to_season and j <= to_episode) or
-                    (from_season < i < to_season)):
-                    filtered_data = season_data[season_data['Episode_Number'] == j]
+        end_season_data = self.data.loc[((self.data['Season_Number'] == to_season) &
+                                        (self.data['Episode_Number'] <= to_episode))]
+
+        mid_season_data = self.data.loc[((self.data['Season_Number'] > from_season) &
+                                        (self.data['Season_Number'] < to_season))]
+        filtered_data = pd.concat([start_season_data, mid_season_data, end_season_data], axis=0)
 
         return filtered_data
 
-    def get_top_n_characters(self, from_season,
-                             to_season=None, from_episode=None,
-                             to_episode=None):
+    @staticmethod
+    def get_top_n_characters_by_screen_time(filtered_data):
+        """
+        Calculate and retrieve the names of the top 15 characters based on their
+        screen time, measured by the total length of dialogue spoken by each character.
+
+        Parameters:
+            df (DataFrame): A DataFrame containing character dialogue data, with at least
+                            'Character' and 'Text' columns.
+
+        Returns:
+            Series: A Pandas Series containing the names of the top 15 characters.
+        """
+        # Calculate dialogue length for each character
+        filtered_data['Dialogue_Length'] = filtered_data['Text'].apply(lambda x: len(x.split()))
+
+        # Group by character and sum their dialogue lengths
+        screen_time = filtered_data.groupby('Character')['Dialogue_Length'].sum().reset_index()
+
+        # Sort by screen time in descending order
+        screen_time = screen_time.sort_values(by='Dialogue_Length',
+                                              ascending=False)['Character'].to_list()[:15]
+
+        return screen_time
+
+    @staticmethod
+    def get_top_n_characters_by_occurence(filtered_data):
         """
         Retrieves the names and dialogue counts of the top 15 characters based
         on their dialogue frequency within a specified range of seasons and episodes.
         Optionally excludes the narrator from the analysis.
 
         Parameters:
+            filtered_data (DataFrame): A DataFrame containing filtered character dialogue data.
+
+        Returns:
+            tuple: A tuple containing two lists:
+                - The first list contains the names of the top 15 characters.
+                - The second list contains the dialogue counts of these characters.
+        """
+        # Count the number of dialogues per character
+        occurence_count = filtered_data['Character'].str.upper().value_counts()
+
+        # Get the top characters
+        top_characters_names = occurence_count.head(15).index.tolist()
+        # top_characters_dialogues = occurence_count.head(15).tolist()
+
+        return top_characters_names
+
+    def get_top_n_characters(self, from_season,
+                             to_season=None, from_episode=None,
+                             to_episode=None):
+        '''
+        Retrieves the top characters based on their screen time and dialogue frequency
+        within a specified range of seasons and episodes.
+
+        Parameters:
             from_season (int): The starting season number.
             to_season (int, optional): The ending season number. If not provided,
-                                       analysis is limited to `from_season`.
+                                    analysis is limited to `from_season`.
             from_episode (int, optional): The starting episode number. If not
-                                          provided, analysis spans all episodes
-                                          in the specified seasons.
+                                        provided, analysis spans all episodes
+                                        in the specified seasons.
             to_episode (int, optional): The ending episode number. If not
                                         provided, analysis spans all episodes
                                         up to `to_episode` in `to_season`.
 
         Returns:
-            tuple: A tuple containing two lists:
-                   - The first list contains the names of the top 15 characters.
-                   - The second list contains the dialogue counts of these characters.
-        """
+            tuple: A tuple containing two tuples:
+                - The first tuple contains the top characters based on screen time.
+                - The second tuple contains the top characters based on dialogue frequency.
+                Each tuple contains two lists:
+                - The first list contains the names of the top characters.
+                - The second list contains the corresponding screen time or dialogue counts.
+        '''
+        if to_season < from_season:
+            raise ValueError("Incorrect season selection")
+        if to_season == from_season:
+            if to_episode < from_episode:
+                raise ValueError("Incorrect episode selection")
 
         # Filter the data for the specified season and episode range
         filtered_data = self.get_filtered_df(from_season,
                              to_season, from_episode,
                              to_episode)
-
         # Exclude the narrator from the analysis
         filtered_data = filtered_data[filtered_data['Character'].str.upper() != 'NARRATOR']
 
-        # Count the number of dialogues per character
-        dialogue_count = filtered_data['Character'].str.upper().value_counts()
+        top_n_characters_screen_time = self.get_top_n_characters_by_screen_time(filtered_data)
+        top_n_characters_occurence = self.get_top_n_characters_by_occurence(filtered_data)
 
-        # Get the top characters
-        top_characters_names = dialogue_count.head(15).index.tolist()
-        top_characters_dialogues = dialogue_count.head(15).tolist()
+        return top_n_characters_screen_time, top_n_characters_occurence
 
-        return top_characters_names, top_characters_dialogues
+
+if __name__ == '__main__':
+    cleaned_data = pd.read_csv('thronetalk-game-of-thrones-summarizer/data/ouput_dialogues.csv')
+    data_analysis = DataAnalysis(cleaned_data)
+    top_15_chars_screen_time, top_15_chars_occurence = data_analysis.get_top_n_characters(
+    from_season=1, to_season=1, from_episode=5, to_episode=10)
