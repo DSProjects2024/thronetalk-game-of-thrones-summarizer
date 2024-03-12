@@ -74,7 +74,7 @@ class VisualizationGenerator:
         self.episode_to = int(episode_to)
         self.season_from = int(season_from)
         self.season_to = int(season_to)
-        self.data = pd.read_csv("thronetalk-game-of-thrones-summarizer/data/ouput_dialogues.csv")
+        self.data = pd.read_csv("data/ouput_dialogues.csv")
 
     def pre_process_data_for_character(self, character: str) -> str:
         """
