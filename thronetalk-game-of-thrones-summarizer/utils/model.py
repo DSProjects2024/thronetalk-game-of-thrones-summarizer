@@ -13,7 +13,8 @@ class Model:
     """
     A class to create summary of GOT plot.
     """
-    def __init__(self, season_from=1, episode_from=1, season_to=1, episode_to=1):
+    def __init__(self, season_from: int, episode_from: int,
+                 season_to: int, episode_to: int) -> None:
         """
         Initializes the summarizer with episode and season information.
 
@@ -23,10 +24,25 @@ class Model:
             season_to: The ending season number (inclusive).
             episode_to: The ending episode number (inclusive) within the ending season.
         """
+        # Python raises `TypeError` automatically if we don't provide the kwargs
+        # pylint: disable=duplicate-code
+        params = [season_from, episode_from, season_to, episode_to]
+        if any(not isinstance(param, int) for param in params):
+            raise ValueError('''season_from, episode_from, season_to
+                             and episode_to must be integers!''')
+        if season_from < 1:
+            raise ValueError("season_from can't be less than 1!")
+        if not 1 <= episode_from <= 10 or not 1 <= episode_to <= 10:
+            raise ValueError("episode_from and episode_to values should be within 1 to 10!")
+        if season_to > 8:
+            raise ValueError("season_from can't be greater than 8!")
+        if (season_from * 10 + episode_from) > (season_to * 10 + episode_to):
+            raise ValueError("From value can't be greater than To value!")
         self.episode_from = episode_from
         self.episode_to = episode_to
         self.season_from = season_from
         self.season_to = season_to
+        self.client = None
 
     def create_summarizer_input(self):
         """
@@ -45,8 +61,8 @@ class Model:
             message_text = [{
                 "role": "system",
                 "content": f'''Summarize Game of thrones from season {str(self.season_from)}
-                 episode {str(self.episode_from)} to season {str(self.season_to)}
-                 episode {str(self.episode_to)} in 300 words.'''
+                    episode {str(self.episode_from)} to season {str(self.season_to)}
+                    episode {str(self.episode_to)} in 300 words.'''
                 }]
         return message_text
 
@@ -69,7 +85,7 @@ class Model:
 
         completion = client.chat.completions.create(
             model="ThroneTalk", # model = "deployment_name"
-            messages = message_text,
+            messages=message_text,
             temperature=0.7,
             max_tokens=800,
             top_p=0.95,

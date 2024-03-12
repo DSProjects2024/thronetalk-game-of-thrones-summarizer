@@ -1,6 +1,6 @@
 '''
 Module that tests `scripts/visualization_generator.py`. Makes use of `unittest` module.
-Consists of smoke tests, one-shot test and edge tests.
+Consists of smoke tests and edge tests.
 '''
 import unittest
 # from unittest.mock import patch
@@ -10,6 +10,16 @@ from utils import VisualizationGenerator
 class TestVisualizationGenerator(unittest.TestCase):
     '''Test suite for `scripts/visualization_generator.py`'''
 
+    # Smoke tests
+    # @patch('scripts.visualization_generator.pd.read_csv',
+    #        side_effect=mock_functions.mocked_read_csv_ouput_dialogues)
+    def test_smoke_test(self):
+        '''Smoke test for VisualizationGenerator'''
+        top_3_characters = ["eddard 'ned' stark", "catelyn stark", "robert baratheon"]
+        v_g = VisualizationGenerator(1,1,1,3)
+        v_g.multi_word_cloud(top_3_characters)
+        v_g.sentiment_analysis_visualization(top_3_characters)
+
     # Edge tests
     def test_init_error(self):
         '''Edge tests for VisualizationGenerator'''
@@ -17,8 +27,6 @@ class TestVisualizationGenerator(unittest.TestCase):
             VisualizationGenerator() # pylint: disable=no-value-for-parameter
         with self.assertRaises(ValueError):
             VisualizationGenerator("","","","")
-        with self.assertRaises(ValueError):
-            VisualizationGenerator(1,1,1,1)
         with self.assertRaises(ValueError):
             VisualizationGenerator(-1,1,1,1)
         with self.assertRaises(ValueError):
@@ -30,7 +38,7 @@ class TestVisualizationGenerator(unittest.TestCase):
         # recommender = Recommender(meta=imdb, scripts=script)
         # self.assertEqual(recommender.weights, [1, 1, 0.8, 0.5, 0.2, 0.2, 0.4])
         # self.assertIsNotNone(recommender.vector_list)
-    # @patch('scripts.visualization_generator.pd.read_csv',
+    # @patch('utils.visualization_generator.pd.read_csv',
     #        side_effect=mock_functions.mocked_read_csv_ouput_dialogues)
     def test_wordcloud_error(self):
         '''Edge tests for wordcloud generation function'''
@@ -51,15 +59,6 @@ class TestVisualizationGenerator(unittest.TestCase):
             v_g.sentiment_analysis_visualization([])
         with self.assertRaises(ValueError):
             v_g.sentiment_analysis_visualization(['', ''])
-
-    # Smoke tests
-    # @patch('scripts.visualization_generator.pd.read_csv',
-    #        side_effect=mock_functions.mocked_read_csv_ouput_dialogues)
-    # def test_smoke_test(self):
-    #     top_3_characters = ["eddard","catelyn","robert"]
-    #     vg = VisualizationGenerator(1,1,1,3)
-    #     vg.multi_word_cloud(top_3_characters)
-    #     vg.sentiment_analysis_visualization(top_3_characters)
 
 if __name__ == "__main__":
     unittest.main()

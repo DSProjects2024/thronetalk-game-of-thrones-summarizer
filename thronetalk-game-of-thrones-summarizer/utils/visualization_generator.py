@@ -56,8 +56,9 @@ class VisualizationGenerator:
 
     def __init__(self, season_from: int, episode_from: int,
                  season_to: int, episode_to: int) -> None:
-        params = [season_from, episode_from, season_to, episode_to]
         # Python raises `TypeError` automatically if we don't provide the kwargs
+        # pylint: disable=duplicate-code
+        params = [season_from, episode_from, season_to, episode_to]
         if any(not isinstance(param, int) for param in params):
             raise ValueError('''season_from, episode_from, season_to
                              and episode_to must be integers!''')
@@ -67,8 +68,8 @@ class VisualizationGenerator:
             raise ValueError("episode_from and episode_to values should be within 1 to 10!")
         if season_to > 8:
             raise ValueError("season_from can't be greater than 8!")
-        if (season_from * 10 + episode_from) >= (season_to * 10 + episode_to):
-            raise ValueError("From value can't be greater than or equal to To value!")
+        if (season_from * 10 + episode_from) > (season_to * 10 + episode_to):
+            raise ValueError("From value can't be greater than To value!")
 
         self.episode_from = int(episode_from)
         self.episode_to = int(episode_to)
