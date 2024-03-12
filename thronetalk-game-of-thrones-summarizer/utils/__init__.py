@@ -12,3 +12,4 @@ related to Game of Thrones. It includes functionalities for:
 Use these functions within your Streamlit app to enhance its capabilities.
 """
 from .visualization_generator import VisualizationGenerator
+from .model import Model
