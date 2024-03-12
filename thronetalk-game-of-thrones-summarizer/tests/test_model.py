@@ -64,12 +64,12 @@ class TestModel(unittest.TestCase):
         mock_summarize.return_value = mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE
         model = Model(1,1,1,2)
 
+        summary = model.summarize()
+        self.assertEqual(summary, mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE)
+
         # Assert that azure_api_call was called with the correct prompt
         message_text = model.create_summarizer_input()
         mock_summarize.assert_called_once_with(message_text)
-
-        summary = model.summarize()
-        self.assertEqual(summary, mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE)
 
 if __name__ == "__main__":
     unittest.main()
