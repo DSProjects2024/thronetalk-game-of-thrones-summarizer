@@ -161,7 +161,7 @@ class DataAnalysis:
                 - The second list contains the dialogue counts of these characters.
         """
         # Count the number of dialogues per character
-        occurence_count = filtered_data['Character'].str.upper().value_counts()
+        occurence_count = filtered_data['Character'].str.lower().value_counts()
 
         # Get the top characters
         top_characters_names = occurence_count.head(15).index.tolist()
@@ -206,7 +206,7 @@ class DataAnalysis:
                              to_season, from_episode,
                              to_episode)
         # Exclude the narrator from the analysis
-        filtered_data = filtered_data[filtered_data['Character'].str.upper() != 'NARRATOR']
+        filtered_data = filtered_data[filtered_data['Character'].str.lower() != 'narrator']
 
         top_n_characters_screen_time = self.get_top_n_characters_by_screen_time(filtered_data)
         top_n_characters_occurence = self.get_top_n_characters_by_occurence(filtered_data)
