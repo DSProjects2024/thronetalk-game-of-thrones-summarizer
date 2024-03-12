@@ -131,7 +131,7 @@ class VisualizationGenerator:
                         dialogue_string += dialogue[1]
                     char_episode_wise_arr.append(dialogue_string)
                 break
-            for j in range(1, 11):          
+            for j in range(1, 11):
                 if i == self.season_from and j >= self.episode_from:
                     episode_mask_df = season_mask_df[season_mask_df['Episode'] == 'e' + str(j)]
                     dialogue_string = ''
@@ -261,7 +261,7 @@ class VisualizationGenerator:
                 if i == self.season_from and j >= self.episode_from:
                     episode_wise_desc.append("S"+str(i)+":E"+str(j))
                 elif i == self.season_to and j <= self.episode_to:
-                    episode_wise_desc.append("S"+str(i)+":E"+str(j))           
+                    episode_wise_desc.append("S"+str(i)+":E"+str(j))
                 elif self.season_from < i < self.season_to:
                     episode_wise_desc.append("S"+str(i)+":E"+str(j))
         sentiment_arr.append(episode_wise_desc)
