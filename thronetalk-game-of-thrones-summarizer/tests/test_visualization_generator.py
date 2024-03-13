@@ -30,9 +30,11 @@ class TestVisualizationGenerator(unittest.TestCase):
         with self.assertRaises(ValueError):
             VisualizationGenerator(-1,1,1,1)
         with self.assertRaises(ValueError):
-            VisualizationGenerator(-1,27,1,1)
+            VisualizationGenerator(1,27,1,1)
         with self.assertRaises(ValueError):
             VisualizationGenerator(2,1,1,1)
+        with self.assertRaises(ValueError):
+            VisualizationGenerator(1,1,9,1)
         # mock.return_value = self.mock_imdb_data
         # imdb, script = data_manager.load_data()
         # recommender = Recommender(meta=imdb, scripts=script)
@@ -45,8 +47,12 @@ class TestVisualizationGenerator(unittest.TestCase):
         v_g = VisualizationGenerator(1,1,1,2)
         with self.assertRaises(TypeError):
             v_g.multi_word_cloud() # pylint: disable=no-value-for-parameter
+        with self.assertRaises(TypeError):
+            v_g.multi_word_cloud("")
         with self.assertRaises(ValueError):
             v_g.multi_word_cloud([])
+        with self.assertRaises(ValueError):
+            v_g.multi_word_cloud([1,2,3])
         with self.assertRaises(ValueError):
             v_g.multi_word_cloud(['', ''])
 
@@ -55,8 +61,12 @@ class TestVisualizationGenerator(unittest.TestCase):
         v_g = VisualizationGenerator(1,1,1,2)
         with self.assertRaises(TypeError):
             v_g.sentiment_analysis_visualization() # pylint: disable=no-value-for-parameter
+        with self.assertRaises(TypeError):
+            v_g.sentiment_analysis_visualization("")
         with self.assertRaises(ValueError):
             v_g.sentiment_analysis_visualization([])
+        with self.assertRaises(ValueError):
+            v_g.sentiment_analysis_visualization([1,2,3])
         with self.assertRaises(ValueError):
             v_g.sentiment_analysis_visualization(['', ''])
 

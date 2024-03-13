@@ -93,15 +93,9 @@ class VisualizationGenerator:
         for i in range(self.season_from, self.season_to + 1):
             season_mask_df = character_mask[character_mask['Season'] == "season-0" + str(i)]
             for j in range(1, 11):
-                if i == self.season_from and j >= self.episode_from:
-                    episode_mask_df = season_mask_df[season_mask_df['Episode'] == 'e' + str(j)]
-                    for dialogue in episode_mask_df.values:
-                        dialogue_string += dialogue[1]
-                elif i == self.season_to and j <= self.episode_to:
-                    episode_mask_df = season_mask_df[season_mask_df['Episode'] == 'e' + str(j)]
-                    for dialogue in episode_mask_df.values:
-                        dialogue_string += dialogue[1]
-                elif self.season_from < i < self.season_to:
+                if ((i == self.season_from and j >= self.episode_from) or
+                    (i == self.season_to and j <= self.episode_to) or
+                    (self.season_from < i < self.season_to)):
                     episode_mask_df = season_mask_df[season_mask_df['Episode'] == 'e' + str(j)]
                     for dialogue in episode_mask_df.values:
                         dialogue_string += dialogue[1]
@@ -125,25 +119,14 @@ class VisualizationGenerator:
         for i in range(self.season_from, self.season_to + 1):
             season_mask_df = character_mask[character_mask['Season'] == "season-0" + str(i)]
             for j in range(1, 11):
-                if i == self.season_from and j >= self.episode_from:
+                if ((i == self.season_from and j >= self.episode_from) or
+                    (i == self.season_to and j <= self.episode_to) or
+                    (self.season_from < i < self.season_to)):
                     episode_mask_df = season_mask_df[season_mask_df['Episode'] == 'e' + str(j)]
                     dialogue_string = ''
                     for dialogue in episode_mask_df.values:
                         dialogue_string += dialogue[1]
                     char_episode_wise_arr.append(dialogue_string)
-                elif i == self.season_to and j <= self.episode_to:
-                    episode_mask_df = season_mask_df[season_mask_df['Episode'] == 'e' + str(j)]
-                    dialogue_string = ''
-                    for dialogue in episode_mask_df.values:
-                        dialogue_string += dialogue[1]
-                    char_episode_wise_arr.append(dialogue_string)
-                elif self.season_from < i < self.season_to:
-                    episode_mask_df = season_mask_df[season_mask_df['Episode'] == 'e' + str(j)]
-                    dialogue_string = ''
-                    for dialogue in episode_mask_df.values:
-                        dialogue_string += dialogue[1]
-                    char_episode_wise_arr.append(dialogue_string)
-
         return char_episode_wise_arr
 
     def multi_word_cloud(self, char_arr: list[str]) -> list:
@@ -246,12 +229,3 @@ class VisualizationGenerator:
         sentiment_arr = self.get_sentiment(char_arr)
         chart_data = pd.DataFrame(np.asarray(sentiment_arr).transpose())
         return chart_data
-
-if __name__ == '__main__':
-    vg = VisualizationGenerator(1,1,1,3)
-    vg.multi_word_cloud([
-        "narrator",
-        "eddard",
-        "catelyn"
-        ])
-    vg.sentiment_analysis_visualization(['TYRION','WAYMAR'])
