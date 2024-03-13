@@ -18,6 +18,7 @@ class TestModel(unittest.TestCase):
         '''Edge tests for Model'''
         with self.assertRaises(TypeError):
             Model() # pylint: disable=no-value-for-parameter
+            # disabling pylint to allow checking for empty class initialization
         with self.assertRaises(ValueError):
             Model("","","","")
         with self.assertRaises(ValueError):

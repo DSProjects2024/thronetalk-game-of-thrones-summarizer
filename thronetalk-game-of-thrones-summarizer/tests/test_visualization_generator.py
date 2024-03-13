@@ -23,6 +23,7 @@ class TestVisualizationGenerator(unittest.TestCase):
         '''Edge tests for VisualizationGenerator'''
         with self.assertRaises(TypeError):
             VisualizationGenerator() # pylint: disable=no-value-for-parameter
+            # disabling pylint to allow checking for empty class initialization
         with self.assertRaises(ValueError):
             VisualizationGenerator("","","","")
         with self.assertRaises(ValueError):
@@ -39,6 +40,7 @@ class TestVisualizationGenerator(unittest.TestCase):
         v_g = VisualizationGenerator(1,1,1,2)
         with self.assertRaises(TypeError):
             v_g.sentiment_analysis_visualization() # pylint: disable=no-value-for-parameter
+            # disabling pylint to allow checking for empty class initialization
         with self.assertRaises(TypeError):
             v_g.sentiment_analysis_visualization("")
         with self.assertRaises(ValueError):
@@ -53,6 +55,7 @@ class TestVisualizationGenerator(unittest.TestCase):
         v_g = VisualizationGenerator(1,1,1,2)
         with self.assertRaises(TypeError):
             v_g.multi_word_cloud() # pylint: disable=no-value-for-parameter
+            # disabling pylint to allow checking for empty class initialization
         with self.assertRaises(TypeError):
             v_g.multi_word_cloud("")
         with self.assertRaises(ValueError):
