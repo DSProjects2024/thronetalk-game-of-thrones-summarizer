@@ -25,6 +25,7 @@ class Model:
             episode_to: The ending episode number (inclusive) within the ending season.
         """
         # Python raises `TypeError` automatically if we don't provide the kwargs
+        # (we'll need separate validation codes to check for both Model and VisualizationGenerator)
         # pylint: disable=duplicate-code
         params = [season_from, episode_from, season_to, episode_to]
         if any(not isinstance(param, int) for param in params):
