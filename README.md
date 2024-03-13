@@ -137,7 +137,7 @@ The raw data for our project was obtained from two different sources:
 1. Dialogues for each character - https://www.kaggle.com/datasets/gopinath15/gameofthrones
 2. Scrapped metadata from IMBD - metadata for the episodes and the show.
 
-Since all the metadata scraping is one-off and the show has finished airing, we are not expecting to run the scripts again. But we can use the file `scripts/data_cleaning.py` to generate the metadata again. (Note - scraper might fail because of IMDb's efforts to prevent web scraping, you might have to manually debug it and run it in batches of 10 episodes if so).
+Since all the metadata scraping is one-off and the show has finished airing, we are not expecting to run the scripts again. But we can use the file `scripts/data_cleaning.py` to generate the cleaned data again. (Note - scraper might fail because of IMDb's efforts to prevent web scraping, you might have to manually debug it and run it in batches of 10 episodes if so).
 
 Run the following:
 ```bash
@@ -146,9 +146,7 @@ python ./scripts/data_cleaning.py
 python ./scripts/get_metadata.py
 conda deactivate
 ```
-More details can be found [here](./scripts/README.md) and [here](./examples/data.ipynb).
-
-Details about the data variables can be found [here](./an_analysis_of_nothing/static/data/README.md).
+More details can be found [Readme](./scripts/README.md) and [data details](./examples/data.ipynb).
 
 <a id="application"></a>
 ### Application
@@ -164,7 +162,7 @@ More details can be found [here](./examples/README.md).
 ## Examples
 A video demonstration of our working application can be seen [here](https://drive.google.com/file/d/1ns3LBZTvtw00qaH_RWThXGwe9duF2EDC/view?usp=sharing).
 
-More details on how to run our code can be found [here](./examples/README.md).
+More details on how to run our app can be found [here](./examples/README.md).
 
 ## Disclaimer
 This project is created by fans for fans and is not affiliated with or endorsed by HBO or the creators of Game of Thrones.

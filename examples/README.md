@@ -5,7 +5,6 @@ This folder contains instruction of how to run this app:
   * [2. Setup Local Environment](#2-local-environment-setup)
 * [Deployment](#deployment)
 * [Web Application](#web-application)
-* **[Video Demonstration]()**
 
 <a id="running-locally"></a>
 ## Running the App Locally
@@ -53,7 +52,7 @@ if not done already.
 
 
 
-Enjoy the experience o fusing Game of Thrones Summarizer right on your browser!!
+Enjoy the experience of using Game of Thrones Summarizer right on your browser!!
 
 <a id="deployment"></a>
 ## Deployment
@@ -64,4 +63,4 @@ The app is hosted as a Streamlit app here: **[throne-talk.streamlit.app](https:/
 <a id="web-application"></a>
 ## Web Application
 * Click [here](./site_navigation.md) for a website walk-through with text.
-* There is also a visual **[Video Demonstration](https://drive.google.com/file/d/1ns3LBZTvtw00qaH_RWThXGwe9duF2EDC/view?usp=sharing).
+* There is also a visual [Video Demonstration](https://drive.google.com/file/d/1ns3LBZTvtw00qaH_RWThXGwe9duF2EDC/view?usp=sharing).
