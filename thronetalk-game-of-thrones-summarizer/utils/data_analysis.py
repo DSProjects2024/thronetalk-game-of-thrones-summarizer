@@ -49,6 +49,11 @@ class DataAnalysis:
         Parameters:
             data (pd.DataFrame): A pandas DataFrame containing dialogue data.
         """
+        if not isinstance(data, pd.DataFrame):
+            raise TypeError("""The input for analysis is incorrect,
+                            please check the input it must be dataframe""")
+        if data.shape == (0,0):
+            raise TypeError("The input dataframe to analysis is empty")
         self.data = data
 
     def get_list_of_characters(self, from_season, to_season=None,
@@ -145,29 +150,6 @@ class DataAnalysis:
 
         return screen_time
 
-    @staticmethod
-    def get_top_n_characters_by_occurence(filtered_data):
-        """
-        Retrieves the names and dialogue counts of the top 15 characters based
-        on their dialogue frequency within a specified range of seasons and episodes.
-        Optionally excludes the narrator from the analysis.
-
-        Parameters:
-            filtered_data (DataFrame): A DataFrame containing filtered character dialogue data.
-
-        Returns:
-            tuple: A tuple containing two lists:
-                - The first list contains the names of the top 15 characters.
-                - The second list contains the dialogue counts of these characters.
-        """
-        # Count the number of dialogues per character
-        occurence_count = filtered_data['Character'].str.upper().value_counts()
-
-        # Get the top characters
-        top_characters_names = occurence_count.head(15).index.tolist()
-        # top_characters_dialogues = occurence_count.head(15).tolist()
-
-        return top_characters_names
 
     def get_top_n_characters(self, from_season,
                              to_season=None, from_episode=None,
@@ -206,16 +188,8 @@ class DataAnalysis:
                              to_season, from_episode,
                              to_episode)
         # Exclude the narrator from the analysis
-        filtered_data = filtered_data[filtered_data['Character'].str.upper() != 'NARRATOR']
+        filtered_data = filtered_data[filtered_data['Character'].str.lower() != 'narrator']
 
         top_n_characters_screen_time = self.get_top_n_characters_by_screen_time(filtered_data)
-        top_n_characters_occurence = self.get_top_n_characters_by_occurence(filtered_data)
 
-        return top_n_characters_screen_time, top_n_characters_occurence
-
-
-if __name__ == '__main__':
-    cleaned_data = pd.read_csv('thronetalk-game-of-thrones-summarizer/data/ouput_dialogues.csv')
-    data_analysis = DataAnalysis(cleaned_data)
-    top_15_chars_screen_time, top_15_chars_occurence = data_analysis.get_top_n_characters(
-    from_season=1, to_season=1, from_episode=5, to_episode=10)
+        return top_n_characters_screen_time

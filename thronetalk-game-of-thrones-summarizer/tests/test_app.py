@@ -3,12 +3,23 @@ Module that tests `app.py`. Makes use of unittest and Streamlit AppTest module.
 Consists of smoke tests, one-shot test and edge tests.
 '''
 import unittest
+from unittest.mock import patch
 from streamlit.testing.v1 import AppTest
+from .mock_functions import mock_model_azure_api_call
+
 class TestStreamlitApp(unittest.TestCase):
     """
     Test cases for the Streamlit app.
     """
-    def setUp(self):
+    # def setUp(self):
+    #     """
+    #     The unittest framework automatically runs this `setUp` function before
+    #     each test. By refactoring the creation of the AppTest into a common
+    #     function, we reduce the total amount of code in the file.
+    #     """
+    #     self.app_test = AppTest.from_file('app.py').run(timeout=30)
+    @patch('utils.model.Model.azure_api_call', side_effect=mock_model_azure_api_call)
+    def setUp(self, _):
         """
         The unittest framework automatically runs this `setUp` function before
         each test. By refactoring the creation of the AppTest into a common
@@ -16,6 +27,7 @@ class TestStreamlitApp(unittest.TestCase):
         """
         self.app_test = AppTest.from_file('app.py').run(timeout=30)
 
+    # Utility function for other tests, not a test by itself.
     def mock_input(self):
         """
         Mocks user input by selecting values in the sidebar.
@@ -38,7 +50,8 @@ class TestStreamlitApp(unittest.TestCase):
         """
         self.assertEqual(self.app_test.title[0].value,  'Game of Thrones - Episode Summarizer')
 
-    def test_sidebar_selectboxes(self):
+    @patch('utils.model.Model.azure_api_call', side_effect=mock_model_azure_api_call)
+    def test_sidebar_selectboxes(self, _):
         """
         Test if the sidebar selectboxes contain expected values.
         """
@@ -52,7 +65,8 @@ class TestStreamlitApp(unittest.TestCase):
         to_ep = to_ep_full.split()[4]
         self.assertIn(to_ep,  ['1','2','3','4','5','6','7','8','9','10'])
 
-    def test_headers(self):
+    @patch('utils.model.Model.azure_api_call', side_effect=mock_model_azure_api_call)
+    def test_headers(self, _):
         """
         Test if the subheaders are correctly displayed after generating summary.
         """
@@ -65,5 +79,6 @@ class TestStreamlitApp(unittest.TestCase):
         sentiment_analysis_subheader = self.app_test.subheader[0].value
         self.assertEqual(sentiment_analysis_subheader,sub_header1)
         self.assertEqual(episode_summary_subheader,sub_header2)
+
 if __name__ == '__main__':
     unittest.main()

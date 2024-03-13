@@ -24,6 +24,8 @@ import matplotlib.pyplot as plt
 from utils.model import Model
 from utils.visualization_generator import VisualizationGenerator
 from utils.data_analysis import DataAnalysis
+import altair as alt
+
 st.set_page_config(layout="wide")
 current_directory = os.path.dirname(__file__)
 csv_file_path = os.path.join(current_directory, 'data', 'Season_Episode_MultiEpisode.csv')
@@ -78,7 +80,7 @@ to_ep_no = int(to_ep_no)
 if submitted:
     cleaned_data = pd.read_csv(f'{current_directory}/data/ouput_dialogues.csv')
     data_analysis = DataAnalysis(cleaned_data)
-    top_3_characters, top_3_characters_dialogues = data_analysis.get_top_n_characters(
+    top_3_characters = data_analysis.get_top_n_characters(
         from_season=int(season_from),
         to_season=int(season_to),
         from_episode=int(from_ep_no),
@@ -94,11 +96,21 @@ if submitted:
         int(season_to),
         int(to_ep_no)
     )
-    LC_DF = pd.DataFrame(vg.sentiment_analysis_visualization(characters))
-    LC_DF = LC_DF.rename(columns=dict(zip(LC_DF.columns, characters)))
-    st.line_chart(LC_DF)
-    #line_chart = vg.sentiment_analysis_visualization(characters)
-    #st.line_chart(line_chart)
+    line_chart = vg.sentiment_analysis_visualization(characters)
+    chart = alt.Chart(line_chart).transform_fold(
+                    characters, as_=["character name", "value"]
+                    ).mark_line(
+                        point={
+                        "filled": False,
+                        "fill": "white"
+                        }
+                            ).encode(
+                    x=alt.X('season-episode:O',title = 'Season:Episode'),
+                    y=alt.Y('value:Q', title = 'Sentiment score'),
+                    color='character name:N'
+
+                )
+    st.altair_chart(chart,use_container_width=True)
     columns = st.columns(len(characters))
     wordcloud = vg.multi_word_cloud(characters)
     plots = []
