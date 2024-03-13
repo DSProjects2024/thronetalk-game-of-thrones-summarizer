@@ -70,7 +70,7 @@ selected_episode_to = st.sidebar.selectbox(f"Episode from  Season {season_to}",
                                            filtered_to_episode, key = 2)
 to_ep_no = selected_episode_to.split()[4]
 submitted = st.sidebar.button("Generate Summary")
-H1 = "Sentiment Analysis & Word Clouds from"
+H1 = "Sentiment Scores Across "
 out_text_temp = f"**Episode Summary from {selected_episode_from} to {selected_episode_to}**"
 out_text_temp2 = f"**{H1} {selected_episode_from} to {selected_episode_to}**"
 season_from = int(season_from)
@@ -90,6 +90,13 @@ if submitted:
     #st.write(characters_tuple)
     characters = list(characters_tuple)
     st.subheader(out_text_temp2)
+    st.markdown('''This line chart visualizes the ***sentiment scores*** across seasons and episodes
+                for the top 3 most active characters within the range selected by the user, 
+                based ***on-screen time***. Sentiment scores reflect the emotional tone of dialogue 
+                and actions, with positive scores indicating positive sentiment and negative scores 
+                indicating negative sentiment. This visualization allows users to track the 
+                emotional journey of key characters throughout the series, identifying trends, 
+                patterns, and significant moments in their development.''')
     vg = VisualizationGenerator(
         int(season_from),
         int(from_ep_no),
@@ -97,6 +104,8 @@ if submitted:
         int(to_ep_no)
     )
     line_chart = vg.sentiment_analysis_visualization(characters)
+    line_chart = vg.sentiment_analysis_visualization(characters)
+    print(characters)
     chart = alt.Chart(line_chart).transform_fold(
                     characters, as_=["character name", "value"]
                     ).mark_line(
@@ -111,6 +120,16 @@ if submitted:
 
                 )
     st.altair_chart(chart,use_container_width=True)
+    H2 = "Word Cloud of top 3 characters from "
+    out_text_2 = f"**{H2} {selected_episode_from} to {selected_episode_to}**"
+    st.subheader(out_text_2)
+    st.markdown('''These word clouds display the most frequently used words
+                 associated with the top 3 characters selected from the sentiment 
+                analysis above. Each word cloud visually represents the prominence 
+                of words in the dialogue or actions of these characters throughout 
+                the selected seasons and episodes. Larger words indicate higher 
+                frequency of use, offering users a glimpse into the key themes, 
+                topics, and attributes associated with each character.''')
     columns = st.columns(len(characters))
     wordcloud = vg.multi_word_cloud(characters)
     plots = []
