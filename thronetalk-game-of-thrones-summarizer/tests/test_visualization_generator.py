@@ -3,9 +3,9 @@ Module that tests `scripts/visualization_generator.py`. Makes use of `unittest` 
 Consists of smoke tests, edge and one-shot tests.
 '''
 import unittest
-# from unittest.mock import patch
+from unittest.mock import patch
 from utils import VisualizationGenerator
-# from . import mock_functions
+from . import mock_functions
 from .mock_constants import (TEST_CHARACTER,
                              WAYMAR_ROYCE_DIALOG_STRING,
                              WAYMAR_ROYCE_SENTIMENT_STRING)
@@ -13,11 +13,11 @@ from .mock_constants import (TEST_CHARACTER,
 class TestVisualizationGenerator(unittest.TestCase):
     '''Test suite for `scripts/visualization_generator.py`'''
 
-    # @patch('utils.visualization_generator.pd.read_csv',
-    #        side_effect=mock_functions.mocked_read_csv_ouput_dialogues)
+    @patch('utils.visualization_generator.pd.read_csv',
+           side_effect=mock_functions.mocked_read_csv_ouput_dialogues)
     def test_smoke(self, _):
         '''Smoke test for VisualizationGenerator'''
-        top_3_characters = ["eddard ned stark", "catelyn stark", "robert baratheon"]
+        top_3_characters = ["arya stark", "jon snow", "catelyn stark"]
         v_g = VisualizationGenerator(1,1,1,3)
         v_g.multi_word_cloud(top_3_characters)
         v_g.sentiment_analysis_visualization(top_3_characters)

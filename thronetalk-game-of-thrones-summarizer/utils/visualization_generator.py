@@ -43,6 +43,8 @@ nltk.download('vader_lexicon')
 nltk.download('stopwords')
 nltk.download('omw-1.4')
 
+data = pd.read_csv("data/ouput_dialogues.csv")
+
 class VisualizationGenerator:
     """
     This class generates visualizations for characters' dialogue in Game of Thrones.
@@ -74,7 +76,6 @@ class VisualizationGenerator:
         self.episode_to = int(episode_to)
         self.season_from = int(season_from)
         self.season_to = int(season_to)
-        self.data = pd.read_csv("data/ouput_dialogues.csv")
 
     def pre_process_data_for_character(self, character: str) -> str:
         """
@@ -86,7 +87,7 @@ class VisualizationGenerator:
         Returns:
             str: Concatenated dialogue string for the character
         """
-        data = self.data
+        # data = self.data
         character_mask = data[data['Character'].str.upper() == character.upper()]
         dialogue_string = ''
         for i in range(self.season_from, self.season_to + 1):
@@ -111,7 +112,7 @@ class VisualizationGenerator:
         Returns:
             list[str]: List of dialogue strings for the character, one per episode
         """
-        data = self.data
+        # data = self.data
         char_episode_wise_arr = []
         character_mask = data[data['Character'].str.upper() == character.upper()]
         for i in range(self.season_from, self.season_to + 1):
