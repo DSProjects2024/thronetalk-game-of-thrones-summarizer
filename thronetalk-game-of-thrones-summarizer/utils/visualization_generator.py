@@ -37,13 +37,24 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from wordcloud import WordCloud, STOPWORDS
 from sklearn.feature_extraction.text import TfidfVectorizer
+
 nltk.download('punkt')
 nltk.download('wordnet')
 nltk.download('vader_lexicon')
 nltk.download('stopwords')
 nltk.download('omw-1.4')
 
-data = pd.read_csv("data/ouput_dialogues.csv")
+def read_dataframe(file_name):
+    '''Function to read dataframe for different environments. Used for tests
+    and app.py'''
+    file_data = None
+    try:
+        file_data = pd.read_csv(f'data/{file_name}')
+    except FileNotFoundError:
+        file_data = pd.read_csv(f'./thronetalk-game-of-thrones-summarizer/data/{file_name}')
+    return file_data
+
+data = read_dataframe('ouput_dialogues.csv')
 
 class VisualizationGenerator:
     """
