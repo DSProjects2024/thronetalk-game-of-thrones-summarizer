@@ -11,15 +11,7 @@ class TestStreamlitApp(unittest.TestCase):
     """
     Test cases for the Streamlit app.
     """
-    # def setUp(self):
-    #     """
-    #     The unittest framework automatically runs this `setUp` function before
-    #     each test. By refactoring the creation of the AppTest into a common
-    #     function, we reduce the total amount of code in the file.
-    #     """
-    #     self.app_test = AppTest.from_file('app.py').run(timeout=30)
-    @patch('utils.model.Model.azure_api_call', side_effect=mock_model_azure_api_call)
-    def setUp(self, _):
+    def setUp(self):
         """
         The unittest framework automatically runs this `setUp` function before
         each test. By refactoring the creation of the AppTest into a common

@@ -58,5 +58,9 @@ def mocked_read_csv_ouput_dialogues():
     # mock_output_dialogues_raw = pd.read_csv(StringIO(data_output_dialogues_raw))
     return dataframe
 
-def mock_model_azure_api_call(*args, **kwargs):
+# *args is required to catch arguments passed while using with
+# unittest's @patch, disabling the pylint warning.
+# pylint: disable=unused-argument
+def mock_model_azure_api_call(*args):
+    '''Mocks the response of azure_api_call from model.py's Model class.'''
     return mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE
