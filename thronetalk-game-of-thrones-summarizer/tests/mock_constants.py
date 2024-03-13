@@ -42,3 +42,11 @@ CHAT_COMPLETIONS_MOCK_RESPONSE = '''In the fantasy world of Westeros, the Seven 
         world of Game of Thrones. The storylines are intricately woven, and the 
         characters face constant challenges and moral dilemmas as they navigate 
         this treacherous landscape.'''
+
+TEST_CHARACTER = 'waymar royce'
+
+WAYMAR_ROYCE_DIALOG_STRING = '''What d’you expect? They’re savages. One lot steals a goat from
+ another lot and before you know it, they’re ripping each other to pieces. How close did you get?'''
+
+WAYMAR_ROYCE_SENTIMENT_STRING = '''What ’ expect ? They ’ savage . One lot steal goat another lot
+ know , ’ ripping piece . How close get ?'''
