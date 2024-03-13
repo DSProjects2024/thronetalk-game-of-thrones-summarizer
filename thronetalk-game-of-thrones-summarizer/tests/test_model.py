@@ -8,19 +8,13 @@ from utils import Model
 from . import mock_constants
 
 class TestModel(unittest.TestCase):
-    # def setUp(self):
-    #     self.model = Model(1, 1, 1, 1)
-
     '''Test suite for `scripts/model.py`'''
-    # Smoke tests
-    # @patch('scripts.visualization_generator.pd.read_csv',
-    #        side_effect=mock_functions.mocked_read_csv_ouput_dialogues)
     def test_smoke_test(self):
         '''Smoke test for Model'''
-        Model(1,1,1,3)
+        model = Model(1,1,1,3)
+        self.assertIsInstance(model, Model)
 
-    # Edge tests
-    def test_init_error(self):
+    def test_edge_init(self):
         '''Edge tests for Model'''
         with self.assertRaises(TypeError):
             Model() # pylint: disable=no-value-for-parameter
@@ -35,9 +29,9 @@ class TestModel(unittest.TestCase):
         with self.assertRaises(ValueError):
             Model(2,1,1,1)
 
-    # One-shot test
-    def test_create_summarizer_input_error(self):
-        '''One-shot test for create_summarizer_input function'''
+    def test_integration_create_summarizer_input(self):
+        '''Integration test to check if create_summarizer_input function
+        works with the remaining functions properly.'''
         # We remove all whitespaces and compare because assertEqual fails
         # for multiline f-strings
         def get_message_content(season_from, episode_from, season_to, episode_to):
@@ -59,27 +53,18 @@ class TestModel(unittest.TestCase):
         self.assertEqual(expected_message, computed_message)
 
     @patch('utils.model.Model.azure_api_call')
-    def test_summarize(self, mock_summarize):
-        '''Test for summarize function'''
+    def test_integration_summarize(self, mock_summarize):
+        '''Integration test to check if all functionality works as expected.'''
         mock_summarize.return_value = mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE
+        
         model = Model(1,1,1,2)
-
         summary = model.summarize()
+        self.assertIsInstance(summary, str)
         self.assertEqual(summary, mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE)
 
         # Assert that azure_api_call was called with the correct prompt
         message_text = model.create_summarizer_input()
         mock_summarize.assert_called_once_with(message_text)
-        # print(mocked_read_csv_ouput_dialogues())
-
-    # @patch('utils.model.AzureOpenAI', side_effect=MockAzureOpenAI)
-    # @patch('utils.model.client.chat.completions.create', side_effect=mock_chat_completions_create)
-    # def test_chat_completions_create(self, _, _2):
-    #     '''Test for create function'''
-    #     # mock_create.return_value = mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE
-    #     model = Model(1,1,1,1)
-    #     summary = model.summarize()
-    #     self.assertEqual(summary, mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE)
 
 if __name__ == "__main__":
     unittest.main()
