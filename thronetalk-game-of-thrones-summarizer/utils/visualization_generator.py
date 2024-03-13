@@ -120,7 +120,7 @@ class VisualizationGenerator:
             season_mask_df = character_mask[character_mask['Season'] == "season-0" + str(i)]
             for j in range(1, 11):
                 if ((i == self.season_from and j >= self.episode_from) or
-                    (i == self.season_to and j <= self.episode_to) or 
+                    (i == self.season_to and j <= self.episode_to) or
                     (self.season_from < i < self.season_to)):
                     episode_mask_df = season_mask_df[season_mask_df['Episode'] == 'e' + str(j)]
                     dialogue_string = ''
