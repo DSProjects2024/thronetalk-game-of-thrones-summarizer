@@ -6,3 +6,5 @@ data/test
 .streamlit
 secrets.toml
 .coverage
+*.egg-info
+dist/
