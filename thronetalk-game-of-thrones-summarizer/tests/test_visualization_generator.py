@@ -15,7 +15,7 @@ class TestVisualizationGenerator(unittest.TestCase):
     #        side_effect=mock_functions.mocked_read_csv_ouput_dialogues)
     def test_smoke_test(self):
         '''Smoke test for VisualizationGenerator'''
-        top_3_characters = ["eddard 'ned' stark", "catelyn stark", "robert baratheon"]
+        top_3_characters = ["eddard ned stark", "catelyn stark", "robert baratheon"]
         v_g = VisualizationGenerator(1,1,1,3)
         v_g.multi_word_cloud(top_3_characters)
         v_g.sentiment_analysis_visualization(top_3_characters)

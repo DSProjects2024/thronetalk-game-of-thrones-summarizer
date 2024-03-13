@@ -96,8 +96,7 @@ if submitted:
         int(season_to),
         int(to_ep_no)
     )
-    line_chart = vg.sentiment_analysis_visualization(characters) 
-    print(characters)
+    line_chart = vg.sentiment_analysis_visualization(characters)
     chart = alt.Chart(line_chart).transform_fold(
                     characters, as_=["character name", "value"]
                     ).mark_line(
