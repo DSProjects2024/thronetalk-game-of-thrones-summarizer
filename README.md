@@ -10,7 +10,7 @@
 ## Introduction
 Welcome to the Game of Thrones Summarizer Git repository! Inspired by the beloved TV series Game of Thrones, this project harnesses the transformative capabilities of OpenAI's GPT-3 model to provide users with succinct yet immersive summaries of their chosen episodes. As fans journey through the repository, they can explore the complexities of character relationships, plot twists, and thematic elements that have made Game of Thrones a cultural phenomenon. The purpose of this summarizer is to offer users a convenient tool for revisiting and analyzing key moments from the series, facilitating deeper engagement and understanding of the intricate narrative threads woven throughout each episode. Whether refreshing their memory, preparing for discussions, or simply reliving the excitement of the show, users can rely on the Game of Thrones Summarizer to unlock new layers of appreciation for the epic saga of Westeros.
 
-Public Website: **[nothing.streamlit.app](https://nothing.streamlit.app/)** -------- TODO change
+Public Website: **[thronetalk.streamlit.app](https://thronetalk-summarizer.streamlit.app/)**
 
 
 #### Team Members:
@@ -161,10 +161,12 @@ This will pop up a browser window with the functioning web-application.
 More details can be found [here](./examples/README.md).
 
 <a id="examples"></a>
-## Examples ----- TODO change links
-A video demonstration of our working application can be seen [here](https://drive.google.com/file/d/1KPQyFiidUAzbk1oaAdEksbGXqCCfxCCf/view).
+## Examples
+A video demonstration of our working application can be seen [here](https://drive.google.com/file/d/1ns3LBZTvtw00qaH_RWThXGwe9duF2EDC/view?usp=sharing).
 
 More details on how to run our code can be found [here](./examples/README.md).
 
 ## Disclaimer
 This project is created by fans for fans and is not affiliated with or endorsed by HBO or the creators of Game of Thrones.
+
+The word cloud generated for each character might include potentially explicit or inappropriate language.
