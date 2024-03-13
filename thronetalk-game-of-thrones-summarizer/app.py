@@ -1,16 +1,18 @@
 """
 Game of Thrones - Episode Summarizer App
 
-This Streamlit application provides a user interface for summarizing episodes of Game of Thrones.
-It includes sentiment analysis, word clouds, episode summaries, 
+This Streamlit application provides a user interface
+for summarizing episodes of Game of Thrones.
+It includes sentiment analysis, word clouds, episode summaries,
 and images from the selected range of episodes.
 
 Usage:
-    1. Select the desired range of episodes using the provided dropdown menus 
+1. Select the desired range of episodes using the provided dropdown menus
         for season and episode numbers.
-    2. Click on the "Generate Summary" button to generate the episode summary for the 
-        selected range of episodes and sentiment analysis and word clouds for top 3 characters.
-    3. Scroll down to view the generated content, including the episode summary, 
+2. Click on the "Generate Summary" button to generate the episode summary for the
+        selected range of episodes and sentiment
+        analysis and word clouds for top 3 characters.
+3. Scroll down to view the generated content, including the episode summary,
         sentiment analysis, word clouds, and images.
 
 """
@@ -19,10 +21,10 @@ import time
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import altair as alt
 from utils.model import Model
 from utils.visualization_generator import VisualizationGenerator, read_dataframe
 from utils.data_analysis import DataAnalysis
-import altair as alt
 
 st.set_page_config(layout="wide")
 current_directory = os.path.dirname(__file__)
@@ -39,10 +41,10 @@ def remove_zeros(lst):
         output = [1, 2, 3]
     """
     return [x for x in lst if x != '0']
-st.title('Game of Thrones - Episode Summarizer')
+st.title('Game of Thrones - Summarizer')
 df = pd.read_csv(csv_file_path)
 seasons = df.columns.tolist()
-st.sidebar.title('Pick From and To Season - Episode')
+st.sidebar.title('Select Season : Episode range')
 st.sidebar.header('From')
 season_from = st.sidebar.selectbox("Season", seasons, key=0)
 selected_season_episode_list1 = df[season_from]

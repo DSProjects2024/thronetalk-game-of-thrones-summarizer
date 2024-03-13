@@ -40,7 +40,7 @@ class TestStreamlitApp(unittest.TestCase):
         """
         Test if the app title is correct.
         """
-        self.assertEqual(self.app_test.title[0].value,  'Game of Thrones - Episode Summarizer')
+        self.assertEqual(self.app_test.title[0].value,  'Game of Thrones - Summarizer')
 
     @patch('utils.model.Model.azure_api_call', side_effect=mock_model_azure_api_call)
     def test_sidebar_selectboxes(self, _):
