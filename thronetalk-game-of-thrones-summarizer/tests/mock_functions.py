@@ -2,6 +2,7 @@
 Mock functions for testing purposes.
 '''
 import pandas as pd
+from . import mock_constants
 
 def mocked_read_csv_ouput_dialogues():
     """
@@ -56,3 +57,10 @@ def mocked_read_csv_ouput_dialogues():
     dataframe = pd.DataFrame(data[1:], columns=data[0])
     # mock_output_dialogues_raw = pd.read_csv(StringIO(data_output_dialogues_raw))
     return dataframe
+
+# *args is required to catch arguments passed while using with
+# unittest's @patch, disabling the pylint warning.
+# pylint: disable=unused-argument
+def mock_model_azure_api_call(*args):
+    '''Mocks the response of azure_api_call from model.py's Model class.'''
+    return mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE

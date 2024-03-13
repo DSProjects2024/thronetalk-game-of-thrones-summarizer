@@ -80,7 +80,7 @@ to_ep_no = int(to_ep_no)
 if submitted:
     cleaned_data = pd.read_csv(f'{current_directory}/data/ouput_dialogues.csv')
     data_analysis = DataAnalysis(cleaned_data)
-    top_3_characters, top_3_characters_dialogues = data_analysis.get_top_n_characters(
+    top_3_characters = data_analysis.get_top_n_characters(
         from_season=int(season_from),
         to_season=int(season_to),
         from_episode=int(from_ep_no),
@@ -110,22 +110,6 @@ if submitted:
                     color='character name:N'
 
                 )
-                # .properties(
-                #     width=1000,
-                #     height=400
-                # )
-#     chart = alt.Chart(line_chart).mark_line().encode(
-#     x='a',
-#     y=alt.Y(alt.repeat(), type='quantitative'),
-#     color=alt.Color(alt.repeat(), type='nominal')
-# ).properties(
-#     width=600,
-#     height=400
-# ).repeat(
-#     layer=['b', 'c', 'd']
-# ).configure_line(
-#     strokeWidth=2
-# )
     st.altair_chart(chart,use_container_width=True)
     columns = st.columns(len(characters))
     wordcloud = vg.multi_word_cloud(characters)
