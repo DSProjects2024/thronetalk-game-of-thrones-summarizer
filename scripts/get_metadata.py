@@ -76,8 +76,6 @@ def write_show_metadata(output_file, dict_data):
     if len(dict_data.keys()) == 0:
         raise ValueError('Provide a valid dictionary data to write to the output file!')
     with open(output_file, 'r+', encoding="utf-8") as outfile:
-        # if error:
-        #     raise IOError(error)
         json.dump(dict_data, outfile, sort_keys=True, indent=2)
 
 def _format_episode_metadata(episode_metadata):
