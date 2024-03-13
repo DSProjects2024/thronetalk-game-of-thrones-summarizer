@@ -24,6 +24,8 @@ import matplotlib.pyplot as plt
 from utils.model import Model
 from utils.visualization_generator import VisualizationGenerator
 from utils.data_analysis import DataAnalysis
+import altair as alt
+
 st.set_page_config(layout="wide")
 current_directory = os.path.dirname(__file__)
 csv_file_path = os.path.join(current_directory, 'data', 'Season_Episode_MultiEpisode.csv')
@@ -94,8 +96,38 @@ if submitted:
         int(season_to),
         int(to_ep_no)
     )
-    line_chart = vg.sentiment_analysis_visualization(characters)
-    st.line_chart(line_chart)
+    line_chart = vg.sentiment_analysis_visualization(characters) 
+    print(characters)
+    chart = alt.Chart(line_chart).transform_fold(
+                    characters, as_=["character name", "value"]
+                    ).mark_line(
+                        point={
+                        "filled": False,
+                        "fill": "white"
+                        }
+                            ).encode(
+                    x=alt.X('season-episode:O',title = 'Season:Episode'),
+                    y=alt.Y('value:Q', title = 'Sentiment score'),
+                    color='character name:N'
+
+                )
+                # .properties(
+                #     width=1000,
+                #     height=400
+                # )
+#     chart = alt.Chart(line_chart).mark_line().encode(
+#     x='a',
+#     y=alt.Y(alt.repeat(), type='quantitative'),
+#     color=alt.Color(alt.repeat(), type='nominal')
+# ).properties(
+#     width=600,
+#     height=400
+# ).repeat(
+#     layer=['b', 'c', 'd']
+# ).configure_line(
+#     strokeWidth=2
+# )
+    st.altair_chart(chart,use_container_width=True)
     columns = st.columns(len(characters))
     wordcloud = vg.multi_word_cloud(characters)
     plots = []

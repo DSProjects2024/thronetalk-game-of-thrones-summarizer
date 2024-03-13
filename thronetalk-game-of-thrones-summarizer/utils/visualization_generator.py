@@ -56,9 +56,8 @@ class VisualizationGenerator:
 
     def __init__(self, season_from: int, episode_from: int,
                  season_to: int, episode_to: int) -> None:
-        # Python raises `TypeError` automatically if we don't provide the kwargs
-        # pylint: disable=duplicate-code
         params = [season_from, episode_from, season_to, episode_to]
+        # Python raises `TypeError` automatically if we don't provide the kwargs
         if any(not isinstance(param, int) for param in params):
             raise ValueError('''season_from, episode_from, season_to
                              and episode_to must be integers!''')
@@ -69,7 +68,7 @@ class VisualizationGenerator:
         if season_to > 8:
             raise ValueError("season_from can't be greater than 8!")
         if (season_from * 10 + episode_from) > (season_to * 10 + episode_to):
-            raise ValueError("From value can't be greater than To value!")
+            raise ValueError("From value can't be greater than or equal to To value!")
 
         self.episode_from = int(episode_from)
         self.episode_to = int(episode_to)
@@ -115,9 +114,17 @@ class VisualizationGenerator:
         data = self.data
         char_episode_wise_arr = []
         character_mask = data[data['Character'].str.upper() == character.upper()]
-
+        print(self.season_from,self.episode_from,self.season_to,self.episode_to)
         for i in range(self.season_from, self.season_to + 1):
             season_mask_df = character_mask[character_mask['Season'] == "season-0" + str(i)]
+            if self.season_from == self.season_to:
+                for j in range(self.episode_from,self.episode_to+1):
+                    episode_mask_df = season_mask_df[season_mask_df['Episode'] == 'e' + str(j)]
+                    dialogue_string = ''
+                    for dialogue in episode_mask_df.values:
+                        dialogue_string += dialogue[1]
+                    char_episode_wise_arr.append(dialogue_string)
+                break
             for j in range(1, 11):
                 if ((i == self.season_from and j >= self.episode_from) or
                     (i == self.season_to and j <= self.episode_to) or
@@ -226,6 +233,25 @@ class VisualizationGenerator:
             raise ValueError("Names in char_arr should be string!")
         if any(len(name) < 1 for name in char_arr):
             raise ValueError("Names cannot be empty!")
-        sentiment_arr = self.get_sentiment(char_arr)
-        chart_data = pd.DataFrame(np.asarray(sentiment_arr).transpose())
+        sentiment_arr = []
+        episode_wise_desc = []
+        for i in range(self.season_from, self.season_to + 1):
+            if self.season_from == self.season_to:
+                for j in range(self.episode_from,self.episode_to+1):
+                    episode_wise_desc.append("S"+str(i)+":E"+str(j))
+                break
+            for j in range(1, 11):
+                if i == self.season_from and j >= self.episode_from:
+                    episode_wise_desc.append("S"+str(i)+":E"+str(j))
+                elif i == self.season_to and j <= self.episode_to:
+                    episode_wise_desc.append("S"+str(i)+":E"+str(j))
+                elif self.season_from < i < self.season_to:
+                    episode_wise_desc.append("S"+str(i)+":E"+str(j))
+        sentiment_arr.append(episode_wise_desc)
+        print(sentiment_arr)
+        sentiment_arr = sentiment_arr + self.get_sentiment(char_arr)
+        print(sentiment_arr)
+
+        chart_data = pd.DataFrame(np.asarray(sentiment_arr).transpose(),
+                                  columns=['season-episode']+char_arr)
         return chart_data
