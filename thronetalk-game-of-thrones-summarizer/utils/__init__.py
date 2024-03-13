@@ -13,3 +13,4 @@ Use these functions within your Streamlit app to enhance its capabilities.
 """
 from .visualization_generator import VisualizationGenerator
 from .model import Model
+from .data_analysis import DataAnalysis
