@@ -120,3 +120,6 @@ class TestDataAnalysis(unittest.TestCase):
         data_analysis = DataAnalysis(self.dialogue_data)
         characters = data_analysis.get_list_of_characters(1, 1, 1, 2)
         self.assertCountEqual(characters, ['arya', 'jon snow', 'daenerys', 'narrator', 'tyrion'])
+
+if __name__ == "__main__":
+    unittest.main()

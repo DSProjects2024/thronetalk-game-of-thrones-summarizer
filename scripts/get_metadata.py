@@ -158,6 +158,6 @@ def write_episode_metadata(output_file, episodes_data):
 
 if __name__ == "__main__":
     data = get_show_metadata(IMDB_GOT_ID)
-    write_show_metadata('../data/show_metadata.json', data)
+    write_show_metadata('./thronetalk-game-of-thrones-summarizer/data/show_metadata.json', data)
     episodes_metadata = get_episode_metadata()
-    write_episode_metadata('../data/episodes_metadata.csv', episodes_metadata)
+    write_episode_metadata('./thronetalk-game-of-thrones-summarizer/data/episodes_metadata.csv', episodes_metadata)
