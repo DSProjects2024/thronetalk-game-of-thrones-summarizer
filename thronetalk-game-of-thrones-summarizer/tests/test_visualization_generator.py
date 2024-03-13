@@ -4,6 +4,8 @@ Consists of smoke tests, edge and one-shot tests.
 '''
 import unittest
 from unittest.mock import patch
+from wordcloud import WordCloud
+import pandas as pd
 from utils import VisualizationGenerator
 from . import mock_functions
 from .mock_constants import (TEST_CHARACTER,
@@ -13,14 +15,9 @@ from .mock_constants import (TEST_CHARACTER,
 class TestVisualizationGenerator(unittest.TestCase):
     '''Test suite for `scripts/visualization_generator.py`'''
 
-    @patch('utils.visualization_generator.pd.read_csv',
-           side_effect=mock_functions.mocked_read_csv_ouput_dialogues)
-    def test_smoke(self, _):
-        '''Smoke test for VisualizationGenerator'''
-        top_3_characters = ["arya stark", "jon snow", "catelyn stark"]
-        v_g = VisualizationGenerator(1,1,1,3)
-        v_g.multi_word_cloud(top_3_characters)
-        v_g.sentiment_analysis_visualization(top_3_characters)
+    def test_smoke(self):
+        v_g = VisualizationGenerator(1,1,1,1)
+        self.assertIsInstance(v_g, VisualizationGenerator)
 
     def test_edge_init(self):
         '''Edge tests for VisualizationGenerator'''
@@ -90,6 +87,24 @@ class TestVisualizationGenerator(unittest.TestCase):
             sentiment_text.split(),
             WAYMAR_ROYCE_SENTIMENT_STRING.split()
         )
+
+    @patch('utils.visualization_generator.pd.read_csv',
+           side_effect=mock_functions.mocked_read_csv_ouput_dialogues)
+    def test_integration(self, _):
+        '''Integration test for VisualizationGenerator to check
+        all functionality works as expected.'''
+        top_3_characters = ["arya stark", "jon snow", "catelyn stark"]
+        v_g = VisualizationGenerator(1,1,1,3)
+        plot_obj_arr = v_g.multi_word_cloud(top_3_characters)
+        line_chart = v_g.sentiment_analysis_visualization(top_3_characters)
+        for plot_obj in plot_obj_arr:
+            self.assertIsInstance(plot_obj, WordCloud)
+        self.assertIsInstance(line_chart, pd.DataFrame)
+
+        # Assert expected columns
+        expected_columns = ['season-episode'] + top_3_characters
+        self.assertEqual(list(line_chart.columns), expected_columns)
+        
 
 if __name__ == "__main__":
     unittest.main()

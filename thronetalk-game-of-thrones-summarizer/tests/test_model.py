@@ -70,6 +70,16 @@ class TestModel(unittest.TestCase):
         # Assert that azure_api_call was called with the correct prompt
         message_text = model.create_summarizer_input()
         mock_summarize.assert_called_once_with(message_text)
+        # print(mocked_read_csv_ouput_dialogues())
+
+    # @patch('utils.model.AzureOpenAI', side_effect=MockAzureOpenAI)
+    # @patch('utils.model.client.chat.completions.create', side_effect=mock_chat_completions_create)
+    # def test_chat_completions_create(self, _, _2):
+    #     '''Test for create function'''
+    #     # mock_create.return_value = mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE
+    #     model = Model(1,1,1,1)
+    #     summary = model.summarize()
+    #     self.assertEqual(summary, mock_constants.CHAT_COMPLETIONS_MOCK_RESPONSE)
 
 if __name__ == "__main__":
     unittest.main()
