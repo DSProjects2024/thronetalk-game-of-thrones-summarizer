@@ -67,7 +67,7 @@ class TestStreamlitApp(unittest.TestCase):
         to_ep_full2 = self.app_test.sidebar.selectbox[3].value
         sub_header1= f"**Sentiment Scores Across {from_ep_full2} to {to_ep_full2}**"
         sub_header2= f"**Episode Summary from {from_ep_full2} to {to_ep_full2}**"
-        episode_summary_subheader = self.app_test.subheader[4].value
+        episode_summary_subheader = self.app_test.subheader[5].value
         sentiment_analysis_subheader = self.app_test.subheader[0].value
         self.assertEqual(sentiment_analysis_subheader,sub_header1)
         self.assertEqual(episode_summary_subheader,sub_header2)
