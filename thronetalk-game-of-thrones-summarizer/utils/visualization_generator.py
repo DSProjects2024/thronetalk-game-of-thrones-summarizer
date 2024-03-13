@@ -120,7 +120,6 @@ class VisualizationGenerator:
         data = self.data
         char_episode_wise_arr = []
         character_mask = data[data['Character'].str.upper() == character.upper()]
-        print(self.season_from,self.episode_from,self.season_to,self.episode_to)
         for i in range(self.season_from, self.season_to + 1):
             season_mask_df = character_mask[character_mask['Season'] == "season-0" + str(i)]
             if self.season_from == self.season_to:
@@ -265,10 +264,7 @@ class VisualizationGenerator:
                 elif self.season_from < i < self.season_to:
                     episode_wise_desc.append("S"+str(i)+":E"+str(j))
         sentiment_arr.append(episode_wise_desc)
-        print(sentiment_arr)
         sentiment_arr = sentiment_arr + self.get_sentiment(char_arr)
-        print(sentiment_arr)
-
         chart_data = pd.DataFrame(np.asarray(sentiment_arr).transpose(),
                                   columns=['season-episode']+char_arr)
         return chart_data
