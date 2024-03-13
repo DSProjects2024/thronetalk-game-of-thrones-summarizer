@@ -158,6 +158,13 @@ streamlit run thronetalk-game-of-thrones-summarizer/app.py
 This will pop up a browser window with the functioning web-application.
 More details can be found [here](./examples/README.md).
 
+Note: While running this app locally inorder to generate summary, you will need to specify
+```
+AZURE_OPENAI_KEY = "YOUR KEY"
+AZURE_ENDPOINT = "YOUR DEPLOYED MODEL ENDPOINT"
+```
+in a secrets.toml file within ```thronetalk-game-of-thrones-summarizer/.streamlit/secrets.toml```
+
 <a id="examples"></a>
 ## Examples
 A video demonstration of our working application can be seen [here](https://drive.google.com/file/d/1ns3LBZTvtw00qaH_RWThXGwe9duF2EDC/view?usp=sharing).
