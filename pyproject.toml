@@ -10,7 +10,7 @@ build-backend = "setuptools.build_meta"
 # is very important so that the build system packages up your
 # dependencies!
 [project]
-name = "thronetalk-game-of-thrones-summarizer"
+name = "thronetalk_game_of_thrones_summarizer"
 version = "1.0.0"
 authors = [
   { name="Abhinav Duvvuri" },
