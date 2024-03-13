@@ -18,11 +18,9 @@ import os
 import time
 import streamlit as st
 import pandas as pd
-#import numpy as np
 import matplotlib.pyplot as plt
-#from wordcloud import WordCloud
 from utils.model import Model
-from utils.visualization_generator import VisualizationGenerator
+from utils.visualization_generator import VisualizationGenerator, read_dataframe
 from utils.data_analysis import DataAnalysis
 import altair as alt
 
@@ -78,7 +76,7 @@ from_ep_no = int(from_ep_no)
 season_to = int(season_to)
 to_ep_no = int(to_ep_no)
 if submitted:
-    cleaned_data = pd.read_csv(f'{current_directory}/data/ouput_dialogues.csv')
+    cleaned_data = read_dataframe('ouput_dialogues.csv')
     data_analysis = DataAnalysis(cleaned_data)
     top_3_characters = data_analysis.get_top_n_characters(
         from_season=int(season_from),
@@ -104,8 +102,6 @@ if submitted:
         int(to_ep_no)
     )
     line_chart = vg.sentiment_analysis_visualization(characters)
-    line_chart = vg.sentiment_analysis_visualization(characters)
-    print(characters)
     chart = alt.Chart(line_chart).transform_fold(
                     characters, as_=["character name", "value"]
                     ).mark_line(
@@ -144,7 +140,7 @@ if submitted:
             st.subheader(characters[i].capitalize())
             st.pyplot(plots[i])
     st.write("\n")
-    episodes_metadata_for_img_df = pd.read_csv('data/episodes_metadata.csv')
+    episodes_metadata_for_img_df = read_dataframe('episodes_metadata.csv')
     st.subheader(out_text_temp)
     #Summarizer
     def spinner_loading_summary():
