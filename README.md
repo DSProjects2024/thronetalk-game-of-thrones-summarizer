@@ -135,11 +135,11 @@ conda remove --name thronetalks --all
 The raw data for our project was obtained from two different sources:
 
 1. Dialogues for each character - https://www.kaggle.com/datasets/gopinath15/gameofthrones
-2. Scrapped metadata from IMBD - ----------- TODO change
+2. Scrapped metadata from IMBD - metadata for the episodes and the show.
 
+Since all the metadata scraping is one-off and the show has finished airing, we are not expecting to run the scripts again. But we can use the file `scripts/data_cleaning.py` to generate the metadata again. (Note - scraper might fail because of IMDb's efforts to prevent web scraping, you might have to manually debug it and run it in batches of 10 episodes if so).
 
-
-To process & store the data for future analyses, run the following code:
+Run the following:
 ```bash
 conda activate thronetalks
 python ./scripts/data_cleaning.py
