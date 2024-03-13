@@ -117,7 +117,7 @@ To create the 'thronetalks' conda environment which contains all the required pa
 conda env create -f environment.yml
 conda activate thronetalks
 ```
-The second commande activates the specific environemnt.
+The second command activates the specific environemnt.
 
 
 If you want to deactivate this environment in the future, then use the command:
