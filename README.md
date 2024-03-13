@@ -2,36 +2,22 @@
 ![build-test workflow](https://github.com/DSProjects2024/thronetalk-game-of-thrones-summarizer/actions/workflows/build_test.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/DSProjects2024/thronetalk-game-of-thrones-summarizer/badge.svg)](https://coveralls.io/github/DSProjects2024/thronetalk-game-of-thrones-summarizer)
 
-[text](tree.ipynb)
 
-1. Project type - An Interactive Web Tool
-2. Questions of interest - Can we develop a model that can take a given input text and transform it into the style of a chosen Game of Thrones character, maintaining the character's speech patterns, vocabulary, and personality traits?
-3. The goal for the project output -
-    Generating Text based on Character Style given an input dialogue and a character name.
-4. Datasets used -
-    1. Dialogues for each character - https://www.kaggle.com/datasets/gopinath15/gameofthrones
-    2. Character allegiances and relationship data -https://www.kaggle.com/datasets/mylesoneill/game-of-thrones
+![](./thronetalk-game-of-thrones-summarizer/static/thronetalk_title.png)
 
 
-![](./an_analysis_of_nothing/static/images/analysis_of_nothing.png)
-
----
-[![Coverage Status](https://coveralls.io/repos/github/yashmanne/an_analysis_of_nothing/badge.svg)](https://coveralls.io/github/yashmanne/an_analysis_of_nothing)
-
-<a id="tntroduction"></a>
+<a id="introduction"></a>
 ## Introduction
-The '90s hit, ***Seinfeld***, is an American sitcom that features four friends, Jerry Seinfeld (Jerry Seinfeld), George Costanza (Jason Alexander), Elaine Benes (Julia Louis-Dreyfus), and Cosmo Kramer (Michael Richards), and their daily lives in New York City. The show follows Jerry, a stand-up comedian, and the lives of his best friend, George, his neighbor, Kramer, and his ex-girlfriend, Elaine, all played by real-life comedians. The show has been characterized as a “show about nothing”. While its popularity peaked in the '90s, the show continues to garner new fans while retaining old ones. It is recognized as one of the most influential sitcoms in TV history.
+Welcome to the Game of Thrones Summarizer Git repository! Inspired by the beloved TV series Game of Thrones, this project harnesses the transformative capabilities of OpenAI's GPT-3 model to provide users with succinct yet immersive summaries of their chosen episodes. As fans journey through the repository, they can explore the complexities of character relationships, plot twists, and thematic elements that have made Game of Thrones a cultural phenomenon. The purpose of this summarizer is to offer users a convenient tool for revisiting and analyzing key moments from the series, facilitating deeper engagement and understanding of the intricate narrative threads woven throughout each episode. Whether refreshing their memory, preparing for discussions, or simply reliving the excitement of the show, users can rely on the Game of Thrones Summarizer to unlock new layers of appreciation for the epic saga of Westeros.
 
-Despite the show having cemented its place as one of the greatest sitcoms to date, it can be difficult for *Seinfeld* fans, as well as those curious about the show, to search and discover certain episode and series characteristics when their only resource is manual web-searching. To this, we develop an interactive web application that covers the extensive capabilities of Wikipedia, IMDb, and Netflix all in one–acting as a descriptive and exploratory tool for users to query specific scenes, visualize character quirks, and receive recommendations for future watches. We hope to not only uncover new insights about the classic show, but also provide a centralized **tool** for fans to access and explore all things *Seinfeld*!
-
-Public Website: **[nothing.streamlit.app](https://nothing.streamlit.app/)**
+Public Website: **[nothing.streamlit.app](https://nothing.streamlit.app/)** -------- TODO change
 
 
 #### Team Members:
 | Name | GitHub | Name | GitHub |
 |:------:|:------:|:------:|:------:|
-| **Yash Manne** | *yashmanne*| **Yamina Katariya** | *YaminaKat7* |
-| **Aditi Shrivastava** | *ad-iti* | **Chandler Ault** | *Dreamweaver2k* |
+| **Abhinav Duvvuri** | *abhinavdv*| **Baisakhi Sarkar** | *baisakhi771* |
+| **Raagul Nagendran** | *raaguln* | **Swarali Desai** | *swarali-desai* |
 
 ## Table of Contents
 * [Introduction](#introduction)
@@ -46,107 +32,70 @@ Public Website: **[nothing.streamlit.app](https://nothing.streamlit.app/)**
 <a id="tasks-of-interest"></a>
 ## Tasks of Interest
 - **Interactive Visual Homepage**:
-  - Chronicles number of dialogue lines for each character across the series across an interactive visual dashboard.
-  - Showcases change in episode rating across the series.
-- **Search Query**:
-  - Allows users to search for specific episodes based on partially remembered dialogue snippets or keywords.
-  - Includes additional ***advanced search*** functionality for filtering search based on season, episode rating, and desired characters.
-  - Showcases multiple visualizations detailing the emotional distribution of the episode among the main characters.
-- **Episode Recommender**:
-  - Finds similar episode(s) to a user's favorite(s) based on dialogue, episode description, IMDb keywords, episode summary, emotional distribution of each character, the number of lines for each character, and the IMDb audience rating.
+  - Enables users to select specified seasons and episode ranges to generate the analysis.
+  - Provides an interactive dashboard showcasing the top characters and their sentiments across the selected episodes.
+- **Character Dialogue Analysis**:
+  - Allows users to explore word clouds illustrating the most frequently used words by each character in the selected episodes.
+  - Presents sentiment analysis graphs depicting the emotional journey of main characters throughout the narrative, offering insights into character development and thematic resonance.
+- **Season/Episode Summarizer**:
+  - Facilitates comparison between episodes based on various criteria, including dialogue sentiment, character prominence,  and thematic elements.
+  - Offers users a comprehensive overview of the series' evolution and narrative arcs, empowering them to identify patterns and themes across different episodes and seasons.
+
 
 <a id="repository-structure"></a>
 ## Repository Structure
 Here is an overview of our project structure:
 ```
-├── an_analysis_of_nothing/
-│   ├── app_pages/
-│   │   ├── __init__.py
-│   │   ├── write_about_page.py
-│   │   ├── write_episode_query.py
-│   │   ├── write_home_page.py
-│   │   ├── write_recommender_page.py
-│   ├── static/
-│   │   ├── data/
-│   │   │   ├── dialogue_tensors/
-│   │   │   │   ├── tensor_0.npy
-│   │   │   │   ├── tensor_1.npy
-│   │   │   │   ├── ...
-│   │   │   │   ├── tensor_9.npy
-│   │   │   ├── metadata.csv
-│   │   │   ├── scripts.csv
-│   │   │   ├── README.md
-│   │   ├── images/
-│   │   │   ├── analysis_of_nothing.png
-│   │   │   ├── elaine.png
-│   │   │   ├── elaine_.jpg
-│   │   │   ├── elaine_typing.gif
-│   │   │   ├── george.png
-│   │   │   ├── george_.jpg
-│   │   │   ├── giphy.gif
-│   │   │   ├── jerry.png
-│   │   │   ├── kramer.png
-│   │   │   ├── kramer_.jpg
-│   │   │   ├── lead.png
-│   │   │   ├── newman_.jpg
-│   │   │   ├── README.md
-│   │   ├── README.md
-│   ├── tests/
-│   │   ├── __init__.py
-│   │   ├── mock_functions.py
-│   │   ├── test_data_manager.py
-│   │   ├── test_episode_query.py
-│   │   ├── test_recommender.py
-│   ├── utils/
-│   │   ├── __init__.py
-│   │   ├── data_constants.py
-│   │   ├── data_manager.py
-│   │   ├── episode_query.py
-│   │   ├── recommender.py
-│   ├── app.py
-│   ├── README.md
-│   ├── requirements.txt
-├── doc/
-│   ├── Component_Specification.md
-│   ├── Episode_Query_Interaction.png
-│   ├── Episode_Recommender_Interaction.png
-│   ├── Final_Presentation.pdf
-│   ├── Functional_Specification.md
-│   ├── General_Analytics_Interaction.png
-│   ├── README.md
-│   ├── Sequence_Diagram.png
-│   ├── Technology_Review.pdf
-├── examples/
-│   │   ├── images/
-│   │   │   ├── README.md
-│   │   │   ├── site_nav_1.png
-│   │   │   ├── site_nav_2.png
-│   │   │   ├── site_nav_3.png
-│   │   │   ├── site_nav_4.png
-│   │   │   ├── site_nav_5.png
-│   │   ├── data.ipynb
-│   │   ├── README.md
-│   │   ├── site_navigation.md
-│   ├── README.md
-├── scripts/
-│   ├── data_tools/
-│   │   ├── __init__.py
-│   │   ├── _scrape_epi_pages.py
-│   │   ├── data_constants.py
-│   │   ├── load_data.py
-│   ├── precompute_tools/
-│   │   ├── __init__.py
-│   │   ├── query_vectors.py
-│   │   ├── sentiment.py
-│   ├── get_final_data.py
-│   ├── README.md
-├── .gitignore
-├── environment.yml
-├── .gitignore
-├── LICENSE
-├── pylintrc
-├── pyproject.toml
-├── README.md (Current File)
+|--thronetalk-game-of-thrones-summarizer/
+|    |--data/
+|    |    |-- characters_v4.csv
+|    |    |-- episodes_metadata.csv
+|    |    |-- episode_metadata.csv
+|    |    |-- game-of-thrones.csv
+|    |    |-- ouput_dialogues.csv
+|    |    |-- ouput_dialogues.csv
+|    |    |-- Season_Episode_MultiEpisode.csv
+|    |    |-- show_metadata.json
+|    |--tests/
+|    |    |-- mock_constants.py
+|    |    |-- mock_functions.py
+|    |    |-- test_app.py
+|    |    |-- test_data_analysis.py
+|    |    |-- test_get_metadata.py
+|    |    |-- test_model.py
+|    |    |-- test_visualization_generator.py
+|    |    |-- __init__.py
+|    |--utils/
+|    |    |-- data_analysis.py
+|    |    |-- model.py
+|    |    |-- visualization_generator.py
+|    |    |-- __init__.py
+|    |--static/
+|    |    |-- thronetalk_title.png
+|    |--app.py
+|--scripts/
+|    |-- data_cleaning.py
+|    |-- get_metadata.py
+|    |-- __init__.py
+|--docs/
+|   |--images/
+|   |   |--comp_spec_uml.png
+|   |-- Component Specification.md
+|   |-- Functional Specification.md
+|   |--ThroneTalks-TechnologyReview.pptx
+|--examples/
+|   |--images/
+|   |   |-- site_navigation_1.png
+|   |   |-- site_navigation_2.png
+|   |   |-- site_navigation_3.png
+|   |   |-- site_navigation_4.png
+|   |-- README.md
+|   |-- site_navigation.md
+|-- LICENSE
+|-- pyproject.toml
+|-- environment.yml
+|-- requirements.txt
+
 ```
 
 <a id="installation"></a>
@@ -154,44 +103,49 @@ Here is an overview of our project structure:
 
 This repository can be cloned locally by running the following `git` command:
 ```bash
-git clone https://github.com/yashmanne/an_analysis_of_nothing.git
+git clone https://github.com/DSProjects2024/thronetalk-game-of-thrones-summarizer.git
 ```
 Please note that Git is required to run the above command. For instructions on downloading Git, please see [the GitHub guide](https://github.com/git-guides/install-git).
 
 <a id="environment"></a>
 ### Environment
-This application is built on top of multiple Python packages with specific version requirements. Installing these packages can cause conflicts with other packages in the workspace. As a work-around, we recommend to use `conda` to create an isolated Python environment with all necessary packages. Specifically, the list of necessary packages can be found at in the [`environment.yml`](./environment.yml) file.
+This application relies on several Python packages with specific version dependencies. Installing these packages may potentially lead to conflicts with existing packages within the workspace. To mitigate this issue, we suggest utilizing `conda` to establish an isolated Python environment containing all essential packages. You can access the list of required packages within the documentation. [`environment.yml`](./environment.yml) file.
 
-To create our specified `nothing` Conda environment, run the following command:
+To create the 'thronetalks' conda environment which contains all the required packages to run the app, run these commands:
+
 ```bash
 conda env create -f environment.yml
+conda activate thronetalks
 ```
+The second commande activates the specific environemnt.
 
-Once the Conda environment is created, it can be activated by:
-```bash
-conda activate nothing
-```
-After coding inside the environment, it can be deactivated with the command:
+
+If you want to deactivate this environment in the future, then use the command:
 ```bash
 conda deactivate
 ```
 
-Please note that Conda must be installed for the above commands to work. For instructions on installing Conda, please visit [Conda.io](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
+If you want to delete this environment, then use the following command:
+```bash
+conda remove --name thronetalks --all
+```
 
 <a id="data"></a>
 ### Data
-The raw data for our project was obtained from three different sources:
-1. Complete script dialogue and metadata for all episodes was found on [Kaggle](https://www.kaggle.com/thec03u5/seinfeld-chronicles).
-2. Additional production information and audience rating was obtained from [IMDb](https://www.imdb.com/interfaces/).
-3. Individual IMDb episode pages were scraped for additional information such as episode summary, episode description, and episode keywords.
+The raw data for our project was obtained from two different sources:
+
+1. Dialogues for each character - https://www.kaggle.com/datasets/gopinath15/gameofthrones
+2. Scrapped metadata from IMBD - ----------- TODO change
+
+
 
 To process & store the data for future analyses, run the following code:
 ```bash
-conda activate nothing
-python ./scripts/get_final_data.py
+conda activate thronetalks
+python ./scripts/data_cleaning.py
+python ./scripts/get_metadata.py
 conda deactivate
 ```
-Please note that this code not only cleans & merges the data, but also calculates the emotional distribution of each dialogue line and generates a pretrained BERT vector embedding for each line. This script may take up to 3 hours.
 More details can be found [here](./scripts/README.md) and [here](./examples/data.ipynb).
 
 Details about the data variables can be found [here](./an_analysis_of_nothing/static/data/README.md).
@@ -200,14 +154,17 @@ Details about the data variables can be found [here](./an_analysis_of_nothing/st
 ### Application
 We generated our application through the open-source `streamlit` package. A local application can be generated with the code:
 ```bash
-conda activate nothing
-streamlit run an_analysis_of_nothing/app.py
+conda activate thronetalks
+streamlit run thronetalk-game-of-thrones-summarizer/app.py
 ```
 This will pop up a browser window with the functioning web-application.
 More details can be found [here](./examples/README.md).
 
 <a id="examples"></a>
-## Examples
+## Examples ----- TODO change links
 A video demonstration of our working application can be seen [here](https://drive.google.com/file/d/1KPQyFiidUAzbk1oaAdEksbGXqCCfxCCf/view).
 
 More details on how to run our code can be found [here](./examples/README.md).
+
+## Disclaimer
+This project is created by fans for fans and is not affiliated with or endorsed by HBO or the creators of Game of Thrones.
