@@ -94,8 +94,11 @@ if submitted:
         int(season_to),
         int(to_ep_no)
     )
-    line_chart = vg.sentiment_analysis_visualization(characters)
-    st.line_chart(line_chart)
+    LC_DF = pd.DataFrame(vg.sentiment_analysis_visualization(characters))
+    LC_DF = LC_DF.rename(columns=dict(zip(LC_DF.columns, characters)))
+    st.line_chart(LC_DF)
+    #line_chart = vg.sentiment_analysis_visualization(characters)
+    #st.line_chart(line_chart)
     columns = st.columns(len(characters))
     wordcloud = vg.multi_word_cloud(characters)
     plots = []
