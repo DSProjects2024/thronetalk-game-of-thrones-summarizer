@@ -49,6 +49,10 @@ class DataAnalysis:
         Parameters:
             data (pd.DataFrame): A pandas DataFrame containing dialogue data.
         """
+        if type(data) != pd.DataFrame:
+            raise TypeError("The input for analysis is incorrect, please check the input it must be dataframe")
+        if data.shape == (0,0):
+            raise TypeError("The input dataframe to analysis is empty")
         self.data = data
 
     def get_list_of_characters(self, from_season, to_season=None,
@@ -215,7 +219,28 @@ class DataAnalysis:
 
 
 if __name__ == '__main__':
-    cleaned_data = pd.read_csv('thronetalk-game-of-thrones-summarizer/data/ouput_dialogues.csv')
-    data_analysis = DataAnalysis(cleaned_data)
+    cleaned_data = pd.read_csv('data/ouput_dialogues.csv')
+    dialogue_data = {
+                        'Character': ['Arya', 'Jon Snow', 'Daenerys', 'Narrator', 'Tyrion', 'Arya', 'Jon Snow'],
+                        'Season_Number': [1, 1, 1, 1, 1, 2, 2],
+                        'Episode_Number': [1, 1, 2, 2, 2, 1, 2],
+                        'Text': [
+                            'I am Arya Stark.',  # Short dialogue
+                            'I am Jon Snow.',  # Short dialogue
+                            'I am Daenerys Targaryen. This is a long dialogue. Mother of dragons',  # Longer dialogue
+                            'Previously on...',  # Narrator
+                            'I drink and I know things.',  # Medium dialogue
+                            'Valar Morghulis.',  # Short dialogue
+                            'The North remembers.'  # Medium dialogue
+                        ]
+                    }
+    dialogue_data = pd.DataFrame(dialogue_data)
+    data_analysis = DataAnalysis(dialogue_data)
+    from_season = 1
+    to_season = 2
+    from_episode = 1
+    to_episode = 2
     top_15_chars_screen_time, top_15_chars_occurence = data_analysis.get_top_n_characters(
-    from_season=1, to_season=1, from_episode=5, to_episode=10)
+    from_season=from_season, to_season=to_season,
+                                           from_episode=from_episode, to_episode=to_episode)
+    print(top_15_chars_screen_time, top_15_chars_occurence)
