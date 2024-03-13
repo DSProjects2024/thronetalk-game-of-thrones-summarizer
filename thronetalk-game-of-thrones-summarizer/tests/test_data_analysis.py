@@ -93,6 +93,22 @@ class TestDataAnalysis(unittest.TestCase):
             data_analysis.get_top_n_characters(from_season=from_season, to_season=to_season,
                                            from_episode=from_episode, to_episode=to_episode)
 
+    def test_episode_check(self):
+        """
+        Tests the episode range validation within the `get_top_n_characters` method of the
+        DataAnalysis class. It ensures that the method raises a ValueError when the
+        starting episode is after the ending episode, validating the logical consistency of
+        episode range parameters.
+        """
+        data_analysis = DataAnalysis(self.dialogue_data)
+        from_season = 1
+        to_season = 1
+        from_episode = 2
+        to_episode = 1
+        with self.assertRaises(ValueError):
+            data_analysis.get_top_n_characters(from_season=from_season, to_season=to_season,
+                                           from_episode=from_episode, to_episode=to_episode)
+
     def test_get_list_of_chars(self):
         """
         Tests the `get_list_of_characters` method of the DataAnalysis class. This test
