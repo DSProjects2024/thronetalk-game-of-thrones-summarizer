@@ -4,3 +4,5 @@ personal
 .ipynb*
 data/test
 .streamlit
+secrets.toml
+.coverage
