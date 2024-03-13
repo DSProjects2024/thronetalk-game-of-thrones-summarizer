@@ -144,12 +144,13 @@ class DataCleaning:
         if speaker_col:
             self.data[speaker_col] =  self.data[speaker_col].apply(lambda x: x.split(' ')[0])
 
-        self.data[speaker_col] = self.data[speaker_col].str.upper()
-        self.ref_data[ref_col] = self.ref_data[ref_col].str.upper()
-        self.ref_data[ref_col] = self.ref_data[ref_col].str.replace('WILLA','WILL')
+        self.data[speaker_col] = self.data[speaker_col].str.lower()
+        self.ref_data[ref_col] = self.ref_data[ref_col].str.lower()
+        self.ref_data[ref_col] = self.ref_data[ref_col].str.replace('willa','will')
+        self.ref_data[ref_col] = self.ref_data[ref_col].str.replace("'", '').str.replace("#", '')
         self.data[speaker_col] = self.data[speaker_col].str.replace('[','').str.replace(']','')
         self.data[speaker_col] = self.data[speaker_col].str.replace('(',' ').str.replace(')',' ')
-        self.data[speaker_col] = self.data[speaker_col].str.replace('(V.O.)', '', regex=True)
+        self.data[speaker_col] = self.data[speaker_col].str.replace('(v.o.)', '', regex=True)
 
     @staticmethod
     def write_dialogues_to_csv(df_to_write, output_file_name, cols_to_write):
@@ -236,9 +237,10 @@ class DataCleaning:
                                   args=('Speaker', 'Character'))
         # Combining the original dataframe with the matches
         result = pd.concat([self.data, matches], axis=1)
-        result['Character'].fillna('NARRATOR', inplace=True)
+        result['Character'].fillna('narrator', inplace=True)
+        result['Character'] = result['Character'].str.replace("'", '').str.replace("#", '')
         cols_to_write = self.data.columns.tolist() + ['Character']
-        self.write_dialogues_to_csv(result, 'data/ouput_dialogues.csv', cols_to_write=cols_to_write)
+        self.write_dialogues_to_csv(result, 'thronetalk-game-of-thrones-summarizer/data/ouput_dialogues.csv', cols_to_write=cols_to_write)
 
 
 
@@ -246,4 +248,4 @@ class DataCleaning:
 
 if __name__ == '__main__':
     data_cleaner = DataCleaning()
-    data_cleaner.data_cleaning_main('data/game-of-thrones.csv', 'data/characters_v4.csv')
+    data_cleaner.data_cleaning_main('thronetalk-game-of-thrones-summarizer/data/game-of-thrones.csv', 'thronetalk-game-of-thrones-summarizer/data/characters_v4.csv')
