@@ -82,7 +82,8 @@ Here is an overview of our project structure:
 |   |   |--comp_spec_uml.png
 |   |-- Component Specification.md
 |   |-- Functional Specification.md
-|   |--ThroneTalks-TechnologyReview.pptx
+|   |--ThroneTalks-TechnologyReview.pdf
+|   |--Throne-Talk_final_presentation.pdf
 |--examples/
 |   |--images/
 |   |   |-- site_navigation_1.png
