@@ -63,4 +63,4 @@ The app is hosted as a Streamlit app here: **[throne-talk.streamlit.app](https:/
 <a id="web-application"></a>
 ## Web Application
 * Click [here](./site_navigation.md) for a website walk-through with text.
-* There is also a visual [Video Demonstration](https://drive.google.com/file/d/1ns3LBZTvtw00qaH_RWThXGwe9duF2EDC/view?usp=sharing).
+* There is also a visual [Video Demonstration](https://drive.google.com/file/d/1GadkwGMEtFOznwmvRZYv9gkUYwnhFoLj/view?usp=sharing).

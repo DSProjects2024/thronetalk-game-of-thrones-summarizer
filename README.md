@@ -167,7 +167,7 @@ in a secrets.toml file within ```thronetalk-game-of-thrones-summarizer/.streamli
 
 <a id="examples"></a>
 ## Examples
-A video demonstration of our working application can be seen [here](https://drive.google.com/file/d/1ns3LBZTvtw00qaH_RWThXGwe9duF2EDC/view?usp=sharing).
+A video demonstration of our working application can be seen [here](https://drive.google.com/file/d/1GadkwGMEtFOznwmvRZYv9gkUYwnhFoLj/view?usp=sharing).
 
 More details on how to run our app can be found [here](./examples/README.md).
 
