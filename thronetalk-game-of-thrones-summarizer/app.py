@@ -91,11 +91,11 @@ if submitted:
     characters = list(characters_tuple)
     st.subheader(out_text_temp2)
     st.markdown('''This line chart visualizes the ***sentiment scores*** across seasons and episodes
-                for the top 3 most active characters within the range selected by the user, 
-                based ***on-screen time***. Sentiment scores reflect the emotional tone of dialogue 
-                and actions, with positive scores indicating positive sentiment and negative scores 
-                indicating negative sentiment. This visualization allows users to track the 
-                emotional journey of key characters throughout the series, identifying trends, 
+                for the top 3 most active characters within the range selected by the user,
+                based ***on-screen time***. Sentiment scores reflect the emotional tone of dialogue
+                and actions, with positive scores indicating positive sentiment and negative scores
+                indicating negative sentiment. This visualization allows users to track the
+                emotional journey of key characters throughout the series, identifying trends,
                 patterns, and significant moments in their development.''')
     vg = VisualizationGenerator(
         int(season_from),
@@ -112,7 +112,7 @@ if submitted:
                         "fill": "white"
                         }
                             ).encode(
-                    x=alt.X('season-episode:O',title = 'Season:Episode'),
+                    x=alt.X('season-episode:O',title = 'Season:Episode', sort=None),
                     y=alt.Y('value:Q', title = 'Sentiment score'),
                     color='character name:N'
 
@@ -122,11 +122,11 @@ if submitted:
     out_text_2 = f"**{H2} {selected_episode_from} to {selected_episode_to}**"
     st.subheader(out_text_2)
     st.markdown('''These word clouds display the most frequently used words
-                 associated with the top 3 characters selected from the sentiment 
-                analysis above. Each word cloud visually represents the prominence 
-                of words in the dialogue or actions of these characters throughout 
-                the selected seasons and episodes. Larger words indicate higher 
-                frequency of use, offering users a glimpse into the key themes, 
+                 associated with the top 3 characters selected from the sentiment
+                analysis above. Each word cloud visually represents the prominence
+                of words in the dialogue or actions of these characters throughout
+                the selected seasons and episodes. Larger words indicate higher
+                frequency of use, offering users a glimpse into the key themes,
                 topics, and attributes associated with each character.''')
     columns = st.columns(len(characters))
     wordcloud = vg.multi_word_cloud(characters)
