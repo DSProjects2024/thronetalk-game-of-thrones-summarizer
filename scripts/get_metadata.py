@@ -75,9 +75,7 @@ def write_show_metadata(output_file, dict_data):
         raise ValueError("Provide dict_data parameter!")
     if len(dict_data.keys()) == 0:
         raise ValueError('Provide a valid dictionary data to write to the output file!')
-    with open(output_file, 'w', encoding="utf-8") as (outfile, error):
-        if error:
-            raise IOError(error)
+    with open(output_file, 'r+', encoding="utf-8") as outfile:
         json.dump(dict_data, outfile, sort_keys=True, indent=2)
 
 def _format_episode_metadata(episode_metadata):
@@ -158,6 +156,6 @@ def write_episode_metadata(output_file, episodes_data):
 
 if __name__ == "__main__":
     data = get_show_metadata(IMDB_GOT_ID)
-    write_show_metadata('./thronetalk-game-of-thrones-summarizer/data/show_metadata.json', data)
+    write_show_metadata('thronetalk-game-of-thrones-summarizer/data/show_metadata.json', data)
     episodes_metadata = get_episode_metadata()
-    write_episode_metadata('./thronetalk-game-of-thrones-summarizer/data/episodes_metadata.csv', episodes_metadata)
+    write_episode_metadata('thronetalk-game-of-thrones-summarizer/data/episodes_metadata.csv', episodes_metadata)
