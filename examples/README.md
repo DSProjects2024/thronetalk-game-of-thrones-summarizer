@@ -42,7 +42,7 @@ conda remove --name thronetalks --all
 ### 4. Run the App
 The app can be run on the localhost using the following command.
 ```bash
-streamlit run an_analysis_of_nothing/app.py
+streamlit run thronetalk-game-of-thrones-summarizer/app.py
 ```
 Make sure to activae conda before doing this using
 ```bash
